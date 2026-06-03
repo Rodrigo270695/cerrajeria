@@ -29,7 +29,13 @@ export const SITE = {
   whatsappMessage:
     "Hola, necesito un cerrajero en el distrito de ",
   arrivalTime: "menos de 20 minutos",
+  logoPath: "/logoico.png",
+  logoSize: 512,
 } as const;
+
+export function getSiteLogoUrl(): string {
+  return `${SITE.url}${SITE.logoPath}`;
+}
 
 export function whatsappUrl(district?: string) {
   const text = district

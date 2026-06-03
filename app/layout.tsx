@@ -4,7 +4,7 @@ import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
-import { SITE } from "@/lib/site";
+import { SITE, getSiteLogoUrl } from "@/lib/site";
 
 const asap = Asap_Condensed({
   subsets: ["latin"],
@@ -58,6 +58,14 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: SITE.title,
     description: SITE.description,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: SITE.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -78,9 +86,11 @@ export const metadata: Metadata = {
   category: "business",
   icons: {
     icon: [
-      { url: "/logoico.png", type: "image/png" },
+      { url: "/logoico.png", sizes: "512x512", type: "image/png" },
+      { url: "/logoico.png", sizes: "192x192", type: "image/png" },
+      { url: "/logoico.png", sizes: "48x48", type: "image/png" },
     ],
-    apple: [{ url: "/logoico.png", type: "image/png" }],
+    apple: [{ url: "/logoico.png", sizes: "512x512", type: "image/png" }],
     shortcut: ["/logoico.png"],
   },
 };
@@ -100,6 +110,13 @@ export default function RootLayout({
           type="image/avif"
           fetchPriority="high"
         />
+        <link
+          rel="icon"
+          href={getSiteLogoUrl()}
+          type="image/png"
+          sizes="512x512"
+        />
+        <link rel="apple-touch-icon" href={getSiteLogoUrl()} sizes="512x512" />
         <style
           dangerouslySetInnerHTML={{
             __html: `#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}`,

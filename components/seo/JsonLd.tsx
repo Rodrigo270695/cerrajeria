@@ -4,7 +4,7 @@ import {
   getDistrictUrl,
   type District,
 } from "@/lib/districts";
-import { SITE } from "@/lib/site";
+import { SITE, getSiteLogoUrl } from "@/lib/site";
 
 type JsonLdProps = {
   district?: District;
@@ -13,13 +13,21 @@ type JsonLdProps = {
 export function JsonLd({ district }: JsonLdProps) {
   const pageUrl = district ? getDistrictUrl(district.slug) : SITE.url;
 
+  const logoUrl = getSiteLogoUrl();
+
   const localBusiness = {
     "@context": "https://schema.org",
     "@type": "Locksmith",
     "@id": `${SITE.url}/#organization`,
     name: district ? `${SITE.name} - ${district.name}` : SITE.name,
     url: pageUrl,
-    image: `${SITE.url}/opengraph-image`,
+    logo: {
+      "@type": "ImageObject",
+      url: logoUrl,
+      width: SITE.logoSize,
+      height: SITE.logoSize,
+    },
+    image: [logoUrl, `${SITE.url}/opengraph-image`],
     telephone: SITE.phoneE164,
     email: SITE.email,
     priceRange: "$$",

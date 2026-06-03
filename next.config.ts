@@ -38,6 +38,16 @@ const nextConfig: NextConfig = {
 
   // Compresión habilitada por defecto en Next.js
   compress: true,
+
+  async redirects() {
+    return [
+      {
+        source: "/favicon.ico",
+        destination: "/logoico.png",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
