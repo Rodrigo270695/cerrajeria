@@ -19,6 +19,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    {
+      url: `${SITE.url}/privacidad`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
+    {
+      url: `${SITE.url}/aviso-legal`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
     ...districtPages,
   ];
 }

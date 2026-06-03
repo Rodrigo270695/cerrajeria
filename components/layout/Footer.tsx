@@ -127,17 +127,39 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-marketing-alt/10 py-6 text-center text-xs text-marketing-highlight/45 sm:flex-row sm:text-left">
-          <p>
-            © {year}{" "}
-            <Link href="/" className="font-semibold text-marketing-highlight/70 hover:text-white">
-              {SITE.name}
+        <div className="flex flex-col gap-4 border-t border-marketing-alt/10 py-6">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs sm:justify-start">
+            <Link
+              href="/privacidad"
+              className="text-marketing-highlight/65 transition hover:text-marketing-highlight"
+            >
+              Política de privacidad
             </Link>
-            {" "}· Cerrajería a domicilio en Lima.
-          </p>
-          <p className="font-medium">
-            Apertura de puertas · Apertura de autos · Cerrajero 24h Lima
-          </p>
+            <Link
+              href="/aviso-legal"
+              className="text-marketing-highlight/65 transition hover:text-marketing-highlight"
+            >
+              Aviso legal
+            </Link>
+            <Link
+              href="/privacidad#cookies"
+              className="text-marketing-highlight/65 transition hover:text-marketing-highlight"
+            >
+              Cookies
+            </Link>
+          </div>
+          <div className="flex flex-col items-center justify-between gap-3 text-center text-xs text-marketing-highlight/45 sm:flex-row sm:text-left">
+            <p>
+              © {year}{" "}
+              <Link href="/" className="font-semibold text-marketing-highlight/70 hover:text-white">
+                {SITE.name}
+              </Link>
+              {" "}· Cerrajería a domicilio en Lima.
+            </p>
+            <p className="font-medium">
+              Apertura de puertas · Apertura de autos · Cerrajero 24h Lima
+            </p>
+          </div>
         </div>
       </Container>
     </footer>
