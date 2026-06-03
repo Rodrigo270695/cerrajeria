@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Asap_Condensed } from "next/font/google";
-import { CookieConsentGate } from "@/components/legal/CookieConsentGate";
+import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
@@ -131,7 +131,8 @@ export default function RootLayout({
         >
           Saltar al contenido principal
         </a>
-        <CookieConsentGate>{children}</CookieConsentGate>
+        <DeferredAnalytics />
+        {children}
       </body>
     </html>
   );

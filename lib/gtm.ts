@@ -2,14 +2,12 @@
  * Eventos del dataLayer para configurar conversiones en Google Tag Manager.
  *
  * En GTM crea activadores (Custom Event) con estos nombres:
- * - phone_click      → conversión llamada telefónica
- * - whatsapp_click   → conversión WhatsApp
- * - cookie_consent   → consentimiento de cookies (consent: granted)
+ * - phone_click     → conversión llamada telefónica
+ * - whatsapp_click  → conversión WhatsApp
  */
 export const GTM_EVENTS = {
   phoneClick: "phone_click",
   whatsappClick: "whatsapp_click",
-  cookieConsent: "cookie_consent",
 } as const;
 
 declare global {

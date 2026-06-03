@@ -7,12 +7,11 @@
  * Conversiones en GTM (activadores Custom Event):
  *   - phone_click     → clic en tel:
  *   - whatsapp_click  → clic en wa.me
- *   - cookie_consent  → usuario aceptó cookies
  *
  * Ver lib/gtm.ts y deploy/GTM-CONVERSIONES.md
  */
 export const ANALYTICS = {
-  gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-KNZLBFS",
+  gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-TD47QX9S",
   googleAdsId: process.env.NEXT_PUBLIC_GA_ADS_ID ?? "AW-722383499",
   phoneConversionLabel:
     process.env.NEXT_PUBLIC_GA_ADS_CONVERSION ??
