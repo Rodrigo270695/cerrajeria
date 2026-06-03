@@ -1,8 +1,7 @@
 import dynamic from "next/dynamic";
 import { Footer } from "@/components/layout/Footer";
+import { DeferredUiChrome } from "@/components/layout/DeferredUiChrome";
 import { StickyNav } from "@/components/layout/StickyNav";
-import { MobileCallBar } from "@/components/layout/MobileCallBar";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { About } from "@/components/sections/About";
 import { Benefits } from "@/components/sections/Benefits";
@@ -14,7 +13,6 @@ import { Features } from "@/components/sections/Features";
 import { Hero } from "@/components/sections/Hero";
 import { MarqueeStrip } from "@/components/sections/MarqueeStrip";
 import { Services } from "@/components/sections/Services";
-import { BackToTop } from "@/components/layout/BackToTop";
 import type { District } from "@/lib/districts";
 
 const TrustStrip = dynamic(
@@ -52,9 +50,7 @@ export function LandingPage({ district }: LandingPageProps) {
         <Contact district={district} />
       </main>
       <Footer />
-      <WhatsAppButton districtName={district?.name} />
-      <BackToTop />
-      <MobileCallBar />
+      <DeferredUiChrome districtName={district?.name} />
     </>
   );
 }

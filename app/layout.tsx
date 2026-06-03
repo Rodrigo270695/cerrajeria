@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Asap_Condensed } from "next/font/google";
 import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
+import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 
 const asap = Asap_Condensed({
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["700"],
   variable: "--font-asap",
   display: "swap",
   preload: true,
@@ -91,6 +92,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${asap.variable} scroll-smooth`}>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href={HERO_LCP.avif}
+          type="image/avif"
+          fetchPriority="high"
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}`,
+          }}
+        />
+      </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
         {/* Skip link — accesibilidad: permite saltar al contenido principal */}
         <a

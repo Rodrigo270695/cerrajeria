@@ -55,7 +55,7 @@ export function Header({ isDistrictPage = false, scrolled = false }: HeaderProps
               width={200}
               height={65}
               className="h-9 w-auto max-w-[160px] object-contain transition-opacity duration-200 group-hover:opacity-80 sm:h-10 lg:h-[50px] lg:max-w-[200px]"
-              priority
+              loading="lazy"
               sizes="200px"
             />
           </Link>

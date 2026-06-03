@@ -17,6 +17,14 @@ export const HERO_SLIDES = [
   { src: "/hero/motos.jpeg",                 alt: "Cerrajero a domicilio en moto — Lima 24h" },
 ] as const;
 
+/** Imagen estática pre-optimizada para LCP móvil (ver scripts/generate-lcp-image.mjs) */
+export const HERO_LCP = {
+  avif: "/hero/perfil-lcp.avif",
+  webp: "/hero/perfil-lcp.webp",
+  width: 640,
+  height: 427,
+} as const;
+
 /** Métricas de confianza mostradas en TrustStrip */
 export const TRUST_STATS = [
   { target: 20,  prefix: "<", suffix: "min",   label: "Tiempo de llegada",    detail: "Garantizado"        },

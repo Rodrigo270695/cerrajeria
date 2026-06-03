@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Star } from "lucide-react";
 import { IconPhone, IconWhatsApp } from "@/components/icons";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -27,7 +26,7 @@ export function Hero({ district }: HeroProps) {
 
   return (
     <section
-      className="relative flex min-h-[92vh] w-full flex-col items-start justify-center overflow-hidden"
+      className="hero-shell relative flex min-h-[92vh] w-full flex-col items-start justify-center overflow-hidden bg-marketing-deep"
       aria-labelledby="hero-heading"
     >
       {/* LCP en servidor + carrusel como mejora progresiva */}
@@ -47,7 +46,8 @@ export function Hero({ district }: HeroProps) {
                 width={260}
                 height={84}
                 className="h-16 w-auto max-w-[260px] object-contain drop-shadow-2xl"
-                priority
+                loading="lazy"
+                sizes="260px"
               />
             </div>
 
@@ -101,19 +101,22 @@ export function Hero({ district }: HeroProps) {
               <strong className="font-semibold text-white">
                 {SITE.arrivalTime}
               </strong>
-              . Abrimos sin dañar tu chapa. Puertas, autos, cajas fuertes y
-              más.
+              . Abrimos sin dañar tu chapa. Puertas, autos, cajas fuertes,
+              instalaciones de chapas principales e interiores y más.
             </p>
 
             {/* Stars */}
             <div className="mt-4 flex items-center gap-2.5">
               <div role="img" aria-label="5 de 5 estrellas" className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
+                  <svg
                     key={i}
+                    viewBox="0 0 20 20"
                     className="h-4 w-4 fill-brand text-brand"
                     aria-hidden
-                  />
+                  >
+                    <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.77l-4.94 2.94.94-5.5-4-3.9 5.53-.8L10 1.5z" />
+                  </svg>
                 ))}
               </div>
               <span className="text-sm font-medium text-white/60">
