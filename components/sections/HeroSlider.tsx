@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useState, useEffect, useCallback, useId } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { HERO_SLIDES, HERO_SLIDE_INTERVAL } from "@/lib/constants";
+import { HeroOverlays } from "./HeroOverlays";
 
 const SLIDES = HERO_SLIDES;
 const INTERVAL = HERO_SLIDE_INTERVAL;
-const PRELOAD_AHEAD = 1;
 
 type Props = {
   onSlideChange?: (index: number) => void;
@@ -16,7 +16,23 @@ type Props = {
 export function HeroSlider({ onSlideChange }: Props) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [extraSlidesReady, setExtraSlidesReady] = useState(false);
   const carouselId = useId();
+
+  // Diferir slides 2+ hasta después del LCP
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => setExtraSlidesReady(true), 2_500);
+    let idleId: number | undefined;
+
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(() => setExtraSlidesReady(true));
+    }
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+    };
+  }, []);
 
   const goTo = useCallback(
     (index: number) => {
@@ -30,27 +46,33 @@ export function HeroSlider({ onSlideChange }: Props) {
   const goNext = useCallback(() => goTo(active + 1), [active, goTo]);
   const goPrev = useCallback(() => goTo(active - 1), [active, goTo]);
 
-  // Auto-avance con pausa en hover/focus
   useEffect(() => {
     if (paused) return;
     const t = setInterval(goNext, INTERVAL);
     return () => clearInterval(t);
   }, [paused, goNext]);
 
-  // Keyboard navigation dentro del carrusel
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key === "ArrowLeft") { e.preventDefault(); goPrev(); }
-      if (e.key === "ArrowRight") { e.preventDefault(); goNext(); }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        goPrev();
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        goNext();
+      }
     },
     [goPrev, goNext],
   );
 
+  const showCarouselLayer = active > 0;
+
   return (
     <>
-      {/* ── Slides: role=group para WCAG carousel pattern ── */}
       <div
         className="absolute inset-0 overflow-hidden"
+        style={{ opacity: showCarouselLayer ? 1 : 0 }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -61,10 +83,12 @@ export function HeroSlider({ onSlideChange }: Props) {
         aria-roledescription="carrusel"
       >
         {SLIDES.map((slide, i) => {
+          if (i === 0) return null;
+
           const isActive = i === active;
-          // Precargar activo + siguiente, diferir el resto
-          const shouldPreload = i === 0 || i <= PRELOAD_AHEAD;
-          const shouldLazy = !isActive && !shouldPreload;
+          const shouldLoad = i === 1 || extraSlidesReady;
+
+          if (!shouldLoad) return null;
 
           return (
             <div
@@ -80,8 +104,8 @@ export function HeroSlider({ onSlideChange }: Props) {
                 src={slide.src}
                 alt={isActive ? slide.alt : ""}
                 fill
-                priority={i === 0}
-                loading={shouldLazy ? "lazy" : undefined}
+                loading="lazy"
+                quality={70}
                 sizes="100vw"
                 className="object-cover object-center"
               />
@@ -89,29 +113,13 @@ export function HeroSlider({ onSlideChange }: Props) {
           );
         })}
 
-        {/* Fallback background cuando no hay imágenes cargadas */}
-        <div
-          className="absolute inset-0 -z-10"
-          style={{ background: "linear-gradient(145deg,#0a1929 0%,#0f2a44 40%,#1a4a7a 70%,#2563eb 100%)" }}
-          aria-hidden
-        />
-
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-dark-deep/95 via-dark-deep/75 to-dark-deep/20" aria-hidden />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-deep/70 via-transparent to-dark-deep/25" aria-hidden />
+        <HeroOverlays />
       </div>
 
-      {/* ── Controles con aria-live ── */}
-      {/* Live region para anunciar cambio de slide a lectores */}
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
         {`Imagen ${active + 1} de ${SLIDES.length}: ${SLIDES[active].alt}`}
       </div>
 
-      {/* Prev / Next — solo visible en pantallas medianas y arriba */}
       <button
         onClick={goPrev}
         className="absolute left-4 top-1/2 z-20 -translate-y-1/2 hidden md:flex h-10 w-10 items-center justify-center rounded-full border border-marketing-alt/20 bg-dark-deep/60 text-white backdrop-blur-sm transition-all hover:border-marketing-alt/50 hover:bg-marketing/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-marketing-alt lg:left-8"
@@ -130,7 +138,6 @@ export function HeroSlider({ onSlideChange }: Props) {
         <ChevronRight className="h-5 w-5" aria-hidden />
       </button>
 
-      {/* Dots — ocultos en móvil, visibles en md+ */}
       <div
         id={carouselId}
         role="tablist"
@@ -153,7 +160,6 @@ export function HeroSlider({ onSlideChange }: Props) {
         ))}
       </div>
 
-      {/* Progress bar */}
       {!paused && (
         <div className="absolute bottom-0 left-0 z-20 h-0.5 w-full bg-white/10" aria-hidden>
           <div

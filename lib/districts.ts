@@ -23,12 +23,23 @@ export const DISTRICTS: District[] = [
   { slug: "la-victoria",      name: "La Victoria" },
 ];
 
+export const DISTRICT_PARAM_PREFIX = "en-";
+
 export function getDistrictBySlug(slug: string): District | undefined {
   return DISTRICTS.find((d) => d.slug === slug);
 }
 
+export function districtParamFromSlug(slug: string): string {
+  return `${DISTRICT_PARAM_PREFIX}${slug}`;
+}
+
+export function slugFromDistrictParam(param: string): string | null {
+  if (!param.startsWith(DISTRICT_PARAM_PREFIX)) return null;
+  return param.slice(DISTRICT_PARAM_PREFIX.length);
+}
+
 export function getDistrictPath(slug: string): string {
-  return `/en-${slug}`;
+  return `/${districtParamFromSlug(slug)}`;
 }
 
 export function getDistrictUrl(slug: string): string {

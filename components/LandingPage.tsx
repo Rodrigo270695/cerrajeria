@@ -20,13 +20,9 @@ import type { District } from "@/lib/districts";
 
 type LandingPageProps = {
   district?: District;
-  showDistrictsHub?: boolean;
 };
 
-export function LandingPage({
-  district,
-  showDistrictsHub = !district,
-}: LandingPageProps) {
+export function LandingPage({ district }: LandingPageProps) {
   return (
     <>
       <JsonLd district={district} />
@@ -41,11 +37,11 @@ export function LandingPage({
         {/* 3. Stats gigantes */}
         <TrustStrip />
 
-        {/* 5. Benefits en cards */}
-        <Benefits district={district} />
-
-        {/* 6. Servicios bento grid */}
+        {/* 5. Servicios */}
         <Services district={district} />
+
+        {/* 6. Benefits en cards */}
+        <Benefits district={district} />
 
         {/* 7. CTA full-bleed */}
         <CtaBanner district={district} />
@@ -59,8 +55,8 @@ export function LandingPage({
         {/* 10. About con stats superpuesto */}
         <About district={district} />
 
-        {/* 11. Distritos hub (solo home) */}
-        {showDistrictsHub && <DistrictsHub />}
+        {/* 11. Distritos — visible en home y páginas de distrito */}
+        <DistrictsHub currentSlug={district?.slug} />
 
         {/* 12. FAQ numerado */}
         <FAQ district={district} />

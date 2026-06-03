@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import type { District } from "@/lib/districts";
 import { SITE, telUrl, whatsappUrl } from "@/lib/site";
+import { HeroLcpBackground } from "./HeroLcpBackground";
 import { HeroSlider } from "./HeroSlider";
 
 type HeroProps = {
@@ -20,14 +21,17 @@ const paymentMethods = [
 
 export function Hero({ district }: HeroProps) {
   const locationLabel = district ? district.name : "Lima";
-  const headlineDistrict = district ? `en ${district.name}` : "en Lima";
+  const locationLine = district
+    ? `EN ${district.name.toUpperCase()} · 24 HORAS`
+    : "EN LIMA · 24 HORAS";
 
   return (
     <section
       className="relative flex min-h-[92vh] w-full flex-col items-start justify-center overflow-hidden"
       aria-labelledby="hero-heading"
     >
-      {/* ── Carousel background (client component) ── */}
+      {/* LCP en servidor + carrusel como mejora progresiva */}
+      <HeroLcpBackground />
       <HeroSlider />
 
       {/* ── Content overlay ── */}
@@ -36,7 +40,7 @@ export function Hero({ district }: HeroProps) {
           <div className="max-w-[640px]">
 
             {/* Logo */}
-            <div className="animate-fade-up mb-8">
+            <div className="mb-8">
               <Image
                 src="/logo.png"
                 alt={`${SITE.name} — Cerrajería a domicilio en ${locationLabel}`}
@@ -44,12 +48,11 @@ export function Hero({ district }: HeroProps) {
                 height={84}
                 className="h-16 w-auto max-w-[260px] object-contain drop-shadow-2xl"
                 priority
-                unoptimized
               />
             </div>
 
             {/* Live badge */}
-            <div className="animate-fade-up animation-delay-100 mb-5 inline-flex items-center gap-2.5 rounded-full border border-marketing-alt/30 bg-dark-deep/65 px-4 py-1.5 backdrop-blur-sm">
+            <div className="mb-5 inline-flex items-center gap-2.5 rounded-full border border-marketing-alt/30 bg-dark-deep/65 px-4 py-1.5 backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-80" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
@@ -59,11 +62,8 @@ export function Hero({ district }: HeroProps) {
               </span>
             </div>
 
-            {/* H1 */}
-            <h1
-              id="hero-heading"
-              className="animate-fade-up animation-delay-100"
-            >
+            {/* H1 — sin animación de opacidad para no retrasar LCP */}
+            <h1 id="hero-heading">
               <span className="block text-5xl font-bold leading-[1.0] tracking-tight text-white drop-shadow-lg sm:text-6xl lg:text-[4.25rem]">
                 Cerrajeros
               </span>
@@ -73,14 +73,14 @@ export function Hero({ district }: HeroProps) {
             </h1>
 
             {/* Location */}
-            <p className="animate-fade-up animation-delay-200 mt-3 text-sm font-bold uppercase tracking-[0.25em] text-white/55 sm:text-base">
-              {headlineDistrict} · 24 Horas
+            <p className="mt-3 text-sm font-bold uppercase tracking-[0.25em] text-white/55 sm:text-base">
+              {locationLine}
             </p>
 
             {/* Phone — focal point con glow pulsante */}
             <a
               href={telUrl()}
-              className="hero-phone-link animate-fade-up animation-delay-300 mt-7 inline-flex items-center gap-3 group"
+              className="hero-phone-link mt-7 inline-flex items-center gap-3 group"
               aria-label={`Llamar al ${SITE.phone}`}
             >
               {/* Pulsing icon */}
@@ -96,7 +96,7 @@ export function Hero({ district }: HeroProps) {
             </a>
 
             {/* Description */}
-            <p className="animate-fade-up animation-delay-400 mt-4 max-w-md text-base leading-relaxed text-white/70">
+            <p className="mt-4 max-w-md text-base leading-relaxed text-white/70">
               Llegamos en{" "}
               <strong className="font-semibold text-white">
                 {SITE.arrivalTime}
@@ -106,7 +106,7 @@ export function Hero({ district }: HeroProps) {
             </p>
 
             {/* Stars */}
-            <div className="animate-fade-up animation-delay-400 mt-4 flex items-center gap-2.5">
+            <div className="mt-4 flex items-center gap-2.5">
               <div role="img" aria-label="5 de 5 estrellas" className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
@@ -122,7 +122,7 @@ export function Hero({ district }: HeroProps) {
             </div>
 
             {/* CTAs */}
-            <div className="animate-fade-up animation-delay-500 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button
                 href={telUrl()}
                 variant="primary"
@@ -147,7 +147,7 @@ export function Hero({ district }: HeroProps) {
             </div>
 
             {/* Payment methods */}
-            <div className="animate-fade-up animation-delay-500 mt-6 flex flex-wrap items-center gap-2">
+            <div className="mt-6 flex flex-wrap items-center gap-2">
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
                 Aceptamos:
               </span>
@@ -161,6 +161,7 @@ export function Hero({ district }: HeroProps) {
                     alt={alt}
                     width={64}
                     height={28}
+                    loading="lazy"
                     className="h-5 w-auto object-contain"
                   />
                 </div>

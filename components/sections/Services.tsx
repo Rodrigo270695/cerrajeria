@@ -67,6 +67,7 @@ export function Services({ district }: ServicesProps) {
                         alt={service.alt}
                         fill
                         loading="lazy"
+                        unoptimized
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="176px"
                       />

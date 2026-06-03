@@ -1,17 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import { Asap_Condensed } from "next/font/google";
+import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 import { GoogleAds } from "@/components/analytics/GoogleAds";
 import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
-import { PhoneConversionTracker } from "@/components/analytics/PhoneConversionTracker";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 
 const asap = Asap_Condensed({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["600", "700"],
   variable: "--font-asap",
   display: "swap",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const viewport: Viewport = {
@@ -75,6 +77,13 @@ export const metadata: Metadata = {
     },
   },
   category: "business",
+  icons: {
+    icon: [
+      { url: "/logoico.png", type: "image/png" },
+    ],
+    apple: [{ url: "/logoico.png", type: "image/png" }],
+    shortcut: ["/logoico.png"],
+  },
 };
 
 export default function RootLayout({
@@ -84,11 +93,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${asap.variable} scroll-smooth`}>
-      <head>
-        {/* Preconnect para mejorar LCP de imágenes externas */}
-        <link rel="preconnect" href="https://cerrajero.pe" />
-        <link rel="dns-prefetch" href="https://cerrajero.pe" />
-      </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
         {/* Skip link — accesibilidad: permite saltar al contenido principal */}
         <a
@@ -99,7 +103,7 @@ export default function RootLayout({
         </a>
         <GoogleTagManager />
         <GoogleAds />
-        <PhoneConversionTracker />
+        <DeferredAnalytics />
         {children}
       </body>
     </html>

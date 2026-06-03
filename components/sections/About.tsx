@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Container } from "@/components/ui/Container";
 import type { District } from "@/lib/districts";
+import { SITE } from "@/lib/site";
 
 const aboutStats = [
   { value: "127+", label: "Clientes satisfechos" },
@@ -31,7 +32,7 @@ export function About({ district }: AboutProps) {
               {/* Main image */}
               <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl ring-1 ring-marketing-alt/20">
                 <Image
-                  src="https://cerrajero.pe/img/cerrajero-a-domiclio-24-horas.webp"
+                  src="/hero/about-servicio.jpeg"
                   alt={`Servicio de cerrajería a domicilio 24 horas en ${location}`}
                   fill
                   loading="lazy"
@@ -81,9 +82,9 @@ export function About({ district }: AboutProps) {
               <div className="mt-6 space-y-4 text-base leading-relaxed text-marketing/70">
                 <p>
                   Nos desplazamos hasta donde te encuentres y te brindamos
-                  soluciones inmediatas en {location}. Al estar ubicados
-                  estratégicamente en Lima, llegamos lo antes posible y te
-                  damos una pronta solución.
+                  soluciones inmediatas en {location}. Desde nuestra base en{" "}
+                  {SITE.address}, llegamos lo antes posible y te damos una pronta
+                  solución.
                 </p>
                 <p>
                   Contamos con todas las herramientas necesarias: aperturas de

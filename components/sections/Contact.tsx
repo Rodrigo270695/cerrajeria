@@ -10,9 +10,10 @@ import type { District } from "@/lib/districts";
 type ContactProps = { district?: District };
 
 const contactItems = [
+  { Icon: MapPin, label: "Dirección", value: SITE.address, href: SITE.mapsUrl },
   { Icon: MapPin, label: "Cobertura", value: "Lima Metropolitana · 15+ distritos" },
   { Icon: Clock, label: "Horario", value: "24 horas · 7 días · Feriados" },
-  { Icon: Phone, label: "Teléfono", value: SITE.phone },
+  { Icon: Phone, label: "Teléfono", value: SITE.phone, href: telUrl() },
 ] as const;
 
 export function Contact({ district }: ContactProps) {
@@ -54,7 +55,10 @@ export function Contact({ district }: ContactProps) {
               </h2>
 
               <ul className="mt-10 space-y-5">
-                {contactItems.map(({ Icon, label, value }) => (
+                {contactItems.map(({ Icon, label, value, ...item }) => {
+                  const href = "href" in item ? item.href : undefined;
+
+                  return (
                   <li key={label} className="flex items-center gap-4">
                     <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/15 shadow-md ring-1 ring-white/20 backdrop-blur-sm">
                       <Icon className="h-5 w-5 text-white" aria-hidden />
@@ -63,10 +67,22 @@ export function Contact({ district }: ContactProps) {
                       <p className="text-xs font-bold uppercase tracking-[0.15em] text-white/55">
                         {label}
                       </p>
-                      <p className="text-base font-semibold text-white">{value}</p>
+                      {href ? (
+                        <a
+                          href={href}
+                          target={href.startsWith("http") ? "_blank" : undefined}
+                          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="text-base font-semibold text-white transition-colors hover:text-[#bfdbfe]"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="text-base font-semibold text-white">{value}</p>
+                      )}
                     </div>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
 
               {/* Phone giant */}
@@ -104,7 +120,7 @@ export function Contact({ district }: ContactProps) {
           <Reveal delay={100}>
             <div className="relative aspect-square overflow-hidden rounded-2xl shadow-2xl ring-2 ring-white/20 lg:aspect-[4/3]">
               <Image
-                src="https://cerrajero.pe/img/cerrajero-lima-en-casa.webp"
+                src="/hero/contact-servicio.jpeg"
                 alt={`Cerrajero a domicilio en ${location}`}
                 fill
                 loading="lazy"

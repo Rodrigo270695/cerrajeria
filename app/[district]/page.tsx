@@ -5,8 +5,10 @@ import {
   DISTRICTS,
   districtPageDescription,
   districtPageTitle,
+  districtParamFromSlug,
   getDistrictBySlug,
   getDistrictUrl,
+  slugFromDistrictParam,
 } from "@/lib/districts";
 import { SITE } from "@/lib/site";
 
@@ -16,13 +18,14 @@ type PageProps = {
 
 export function generateStaticParams() {
   return DISTRICTS.map((district) => ({
-    district: district.slug,
+    district: districtParamFromSlug(district.slug),
   }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { district: slug } = await params;
-  const district = getDistrictBySlug(slug);
+  const { district: param } = await params;
+  const slug = slugFromDistrictParam(param);
+  const district = slug ? getDistrictBySlug(slug) : undefined;
 
   if (!district) {
     return { title: "Distrito no encontrado" };
@@ -62,12 +65,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function DistrictPage({ params }: PageProps) {
-  const { district: slug } = await params;
-  const district = getDistrictBySlug(slug);
+  const { district: param } = await params;
+  const slug = slugFromDistrictParam(param);
+  const district = slug ? getDistrictBySlug(slug) : undefined;
 
   if (!district) {
     notFound();
   }
 
-  return <LandingPage district={district} showDistrictsHub={false} />;
+  return <LandingPage district={district} />;
 }

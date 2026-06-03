@@ -1,10 +1,14 @@
+import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Container } from "@/components/ui/Container";
-import { DISTRICTS } from "@/lib/districts";
-import { whatsappDistrictUrl } from "@/lib/site";
+import { DISTRICTS, getDistrictPath } from "@/lib/districts";
 
-export function DistrictsHub() {
+type DistrictsHubProps = {
+  currentSlug?: string;
+};
+
+export function DistrictsHub({ currentSlug }: DistrictsHubProps) {
   return (
     <section
       id="distritos"
@@ -40,31 +44,42 @@ export function DistrictsHub() {
             <div className="mx-auto mt-5 h-0.5 w-16 rounded-full bg-white/25" aria-hidden />
             <p className="mx-auto mt-5 max-w-lg text-base text-white/65">
               Atención 24 horas con páginas dedicadas para cada zona. Elige tu
-              distrito y contáctanos al instante.
+              distrito y ve el servicio en tu zona.
             </p>
           </div>
         </Reveal>
 
         {/* District grid */}
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {DISTRICTS.map((district, index) => (
+          {DISTRICTS.map((district, index) => {
+            const isCurrent = currentSlug === district.slug;
+
+            return (
             <Reveal key={district.slug} as="li" delay={80 + index * 30}>
-              <a
-                href={whatsappDistrictUrl(district.name)}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Solicitar cerrajero en ${district.name} por WhatsApp`}
-                className="group flex h-full flex-col items-center justify-center gap-1 rounded-xl border border-white/12 bg-white/8 px-3 py-4 text-center backdrop-blur-sm transition-all duration-250 hover:-translate-y-0.5 hover:border-whatsapp/60 hover:bg-whatsapp hover:text-white hover:shadow-lg hover:shadow-whatsapp/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              <Link
+                href={getDistrictPath(district.slug)}
+                aria-label={`Cerrajero en ${district.name}`}
+                aria-current={isCurrent ? "page" : undefined}
+                className={`group flex h-full flex-col items-center justify-center gap-1 rounded-xl border px-3 py-4 text-center backdrop-blur-sm transition-all duration-250 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${
+                  isCurrent
+                    ? "border-white/60 bg-white/20 shadow-lg shadow-white/15"
+                    : "border-white/12 bg-white/8 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/15 hover:shadow-lg hover:shadow-white/10"
+                }`}
               >
-                <span className="text-sm font-semibold text-white/80 transition-colors group-hover:text-white">
+                <span className={`text-sm font-semibold transition-colors ${
+                  isCurrent ? "text-white" : "text-white/80 group-hover:text-white"
+                }`}>
                   {district.name}
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wide text-white/35 transition-colors group-hover:text-white/85">
-                  WhatsApp →
+                <span className={`text-[10px] font-bold uppercase tracking-wide transition-colors ${
+                  isCurrent ? "text-white/90" : "text-white/35 group-hover:text-white/85"
+                }`}>
+                  {isCurrent ? "Estás aquí" : "Ver servicio →"}
                 </span>
-              </a>
+              </Link>
             </Reveal>
-          ))}
+            );
+          })}
         </ul>
       </Container>
 

@@ -28,16 +28,16 @@ export function JsonLd({ district }: JsonLdProps) {
       : SITE.description,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Claudio Galeno 224",
-      addressLocality: "San Borja",
-      addressRegion: "Lima",
-      postalCode: "15036",
-      addressCountry: "PE",
+      streetAddress: SITE.streetAddress,
+      addressLocality: SITE.addressLocality,
+      addressRegion: SITE.addressRegion,
+      postalCode: SITE.postalCode,
+      addressCountry: SITE.addressCountry,
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: -12.0975,
-      longitude: -77.0028,
+      latitude: SITE.geo.latitude,
+      longitude: SITE.geo.longitude,
     },
     areaServed: district
       ? [

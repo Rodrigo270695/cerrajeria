@@ -1,15 +1,14 @@
 import { KeyRound } from "lucide-react";
 
 const items = [
-  "Apertura de Puertas",
-  "Cerrajero 24 Horas",
+  "Apertura de Casas y Apartamentos",
   "Apertura de Autos",
-  "Cambio de Cerraduras",
-  "Apertura de Cajas Fuertes",
   "Instalación de Chapas",
-  "Amaestramiento",
-  "Cerrajero a Domicilio",
-  "Duplicado de Llaves",
+  "Barras Cantol",
+  "Chapas Digitales",
+  "Cambio de Combinación",
+  "Apertura de Cajas Fuertes",
+  "Cerrajero 24 Horas",
   "Servicio en Lima",
 ];
 

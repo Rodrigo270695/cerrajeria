@@ -46,11 +46,11 @@ export type FAQ = {
 // ── Datos ─────────────────────────────────────────────────────────────────────
 
 export const quickServices: QuickService[] = [
-  { id: "sistema",    label: "Cambio de Sistema",         icon: "key"    },
-  { id: "puertas",   label: "Apertura de Puertas",        icon: "door"   },
-  { id: "autos",     label: "Apertura de Autos",          icon: "car"    },
-  { id: "cerraduras",label: "Cambio de Cerraduras",       icon: "lock"   },
-  { id: "instalacion",label:"Instalación de Cerraduras",  icon: "shield" },
+  { id: "puertas",     label: "Apertura de Casas",          icon: "door"   },
+  { id: "autos",       label: "Apertura de Autos",          icon: "car"    },
+  { id: "instalacion", label: "Instalación de Chapas",      icon: "shield" },
+  { id: "cambio",      label: "Cambio de Combinación",      icon: "lock"   },
+  { id: "cajafuerte",  label: "Apertura de Cajas Fuertes",  icon: "key"    },
 ];
 
 export const benefits: Benefit[] = [
@@ -76,7 +76,7 @@ export const benefits: Benefit[] = [
   },
   {
     title: "Cerrajeros especializados",
-    description: "Profesionales en cerrajería fina, ubicados estratégicamente en todo Lima.",
+    description: "Profesionales en cerrajería fina con base en San Borja y cobertura en todo Lima.",
     icon: "user",
   },
   {
@@ -88,52 +88,60 @@ export const benefits: Benefit[] = [
 
 export const services: Service[] = [
   {
-    title: "Apertura de Caja Fuertes",
+    title: "Apertura de Casas y Apartamentos",
     description:
-      "Apertura rápida de caja fuerte, todas las marcas y modelos. Si extraviaste tus llaves no te preocupes, nosotros te brindamos la solución. Nos desplazamos en moto.",
-    image: "/images/services/caja-fuerte.svg",
-    photo: "/hero/caja-fuerte-servicio.jpeg",
-    alt: "Servicio de apertura de cajas fuertes en Lima",
-  },
-  {
-    title: "Apertura de Puertas de Casas o Residencias",
-    description:
-      "Atendemos urgencias las 24 horas. Abrimos cerraduras sin comprometer la puerta ni la cerradura, con cerrajeros especializados en apertura de puertas.",
+      "Urgencias las 24 horas. Abrimos la puerta de tu casa o departamento sin dañar la chapa ni la cerradura, con técnicos especializados en Lima.",
     image: "/images/services/puertas.svg",
     photo: "/hero/apertura-puertas.jpeg",
-    alt: "Apertura de puertas de casas y residencias en Lima",
+    alt: "Apertura de casas y apartamentos en Lima",
   },
   {
-    title: "Cerrajería o Apertura de Autos",
+    title: "Apertura de Autos",
     description:
-      "Abrimos autos de marcas como BMW, Kia, Lexus, Volvo, Mercedes Benz, Toyota, Audi y más, en pocos minutos y sin hacer daños.",
+      "Abrimos vehículos de todas las marcas — BMW, Kia, Toyota, Mercedes Benz, Audi y más — en pocos minutos y sin rayones ni daños.",
     image: "/images/services/autos.svg",
     photo: "/hero/apertura-autos.jpeg",
-    alt: "Apertura de vehículos sin daños en Lima",
+    alt: "Apertura de autos sin daños en Lima",
   },
   {
-    title: "Instalación de Cerraduras de Seguridad",
+    title: "Instalación de Chapas de Cuarto, Baño y Principales",
     description:
-      "Instalación de cerraduras de seguridad para puertas de madera o fierro, desde las más sencillas hasta las más sofisticadas.",
+      "Instalamos y reparamos chapas para puertas de cuarto, baño y acceso principal. Trabajo limpio, seguro y con garantía.",
     image: "/images/services/instalacion.svg",
     photo: "/hero/instalacion-cerraduras.jpeg",
-    alt: "Instalación de cerraduras de seguridad",
+    alt: "Instalación de chapas de cuarto, baño y principales en Lima",
   },
   {
-    title: "Amaestramiento de Cerraduras y Candados",
+    title: "Instalación de Barras Cantol",
     description:
-      "Una llave maestra puede abrir más de un cilindro. Servicio completo de amaestramiento de cerraduras y candados.",
-    image: "/images/services/amaestramiento.svg",
-    photo: "/hero/amaestramiento-servicio.jpeg",
-    alt: "Amaestramiento de cerraduras y candados",
+      "Colocamos barras Cantol y sistemas de seguridad adicional para reforzar puertas de madera o fierro en hogares y negocios.",
+    image: "/images/services/instalacion.svg",
+    photo: "/hero/barras-cantol-servicio.jpeg",
+    alt: "Instalación de barras Cantol en Lima",
   },
   {
-    title: "Cambio de Cerraduras o Pines",
+    title: "Instalación de Chapas Digitales",
     description:
-      "Ideal cuando perdiste tu llave o sufriste robo de llaves originales. Cambio de cerraduras o pines con rapidez.",
+      "Instalación y configuración de cerraduras digitales, teclados numéricos y sistemas de acceso modernos para mayor comodidad y seguridad.",
+    image: "/images/services/cambio.svg",
+    photo: "/hero/chapas-digitales-servicio.jpeg",
+    alt: "Instalación de chapas digitales en Lima",
+  },
+  {
+    title: "Cambio de Combinación de Chapa",
+    description:
+      "Cambiamos la combinación o el cilindro de tu cerradura cuando perdiste las llaves o quieres mayor seguridad, sin reemplazar toda la chapa.",
     image: "/images/services/cambio.svg",
     photo: "/hero/cambio-cerraduras.jpeg",
-    alt: "Cambio de cerraduras y pines en Lima",
+    alt: "Cambio de combinación de chapa en Lima",
+  },
+  {
+    title: "Apertura de Cajas Fuertes",
+    description:
+      "Apertura de cajas fuertes de todas las marcas y modelos. Si extraviaste tus llaves, te brindamos la solución. Nos desplazamos a domicilio.",
+    image: "/images/services/caja-fuerte.svg",
+    photo: "/hero/caja-fuerte-servicio.jpeg",
+    alt: "Apertura de cajas fuertes en Lima",
   },
 ];
 
@@ -141,7 +149,7 @@ export const features: Feature[] = [
   {
     title: "Cobertura en todo Lima",
     description:
-      "Distritos del centro, sur y este con llegada rápida gracias a nuestra ubicación estratégica.",
+      "Distritos del centro, sur y este con llegada rápida desde San Borja.",
   },
   {
     title: "Duplicado de llaves",
@@ -246,12 +254,13 @@ export const faqs: FAQ[] = [
 export const districts = DISTRICTS.map((d) => d.name);
 
 export const footerServices: string[] = [
-  "Apertura de puertas",
+  "Apertura de casas y apartamentos",
   "Apertura de autos",
+  "Instalación de chapas",
+  "Instalación de barras Cantol",
+  "Instalación de chapas digitales",
+  "Cambio de combinación de chapa",
   "Apertura de cajas fuertes",
-  "Cambio de cerraduras y bombines",
-  "Instalación de cerraduras",
-  "Apertura de todo tipo de cerraduras",
 ];
 
 export const carBrands: string[] = [
