@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import type { District } from "@/lib/districts";
 import { SITE, telUrl, whatsappUrl } from "@/lib/site";
+import { HeroCarouselLazy } from "./HeroCarouselLazy";
 import { HeroLcpBackground } from "./HeroLcpBackground";
-import { HeroSlider } from "./HeroSlider";
 
 type HeroProps = {
   district?: District;
@@ -32,7 +32,7 @@ export function Hero({ district }: HeroProps) {
     >
       {/* LCP en servidor + carrusel como mejora progresiva */}
       <HeroLcpBackground />
-      <HeroSlider />
+      <HeroCarouselLazy />
 
       {/* ── Content overlay ── */}
       <div className="relative z-10 w-full py-20 lg:py-28">

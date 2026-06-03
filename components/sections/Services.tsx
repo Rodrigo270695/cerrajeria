@@ -67,9 +67,9 @@ export function Services({ district }: ServicesProps) {
                         alt={service.alt}
                         fill
                         loading="lazy"
-                        unoptimized
+                        quality={60}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="176px"
+                        sizes="(max-width: 640px) 144px, 176px"
                       />
                       {/* Gradiente derecho para fusionar con el contenido */}
                       <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white to-transparent" />

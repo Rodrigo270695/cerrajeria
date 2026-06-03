@@ -16,22 +16,11 @@ type Props = {
 export function HeroSlider({ onSlideChange }: Props) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [extraSlidesReady, setExtraSlidesReady] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const carouselId = useId();
 
-  // Diferir slides 2+ hasta después del LCP
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => setExtraSlidesReady(true), 2_500);
-    let idleId: number | undefined;
-
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(() => setExtraSlidesReady(true));
-    }
-
-    return () => {
-      window.clearTimeout(timeoutId);
-      if (idleId !== undefined) window.cancelIdleCallback(idleId);
-    };
+    setMounted(true);
   }, []);
 
   const goTo = useCallback(
@@ -47,10 +36,10 @@ export function HeroSlider({ onSlideChange }: Props) {
   const goPrev = useCallback(() => goTo(active - 1), [active, goTo]);
 
   useEffect(() => {
-    if (paused) return;
+    if (!mounted || paused) return;
     const t = setInterval(goNext, INTERVAL);
     return () => clearInterval(t);
-  }, [paused, goNext]);
+  }, [mounted, paused, goNext]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -66,12 +55,15 @@ export function HeroSlider({ onSlideChange }: Props) {
     [goPrev, goNext],
   );
 
+  if (!mounted) return null;
+
   const showCarouselLayer = active > 0;
+  const nextIndex = (active + 1) % SLIDES.length;
 
   return (
     <>
       <div
-        className="absolute inset-0 overflow-hidden"
+        className="absolute inset-0 overflow-hidden transition-opacity duration-1000"
         style={{ opacity: showCarouselLayer ? 1 : 0 }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -86,9 +78,8 @@ export function HeroSlider({ onSlideChange }: Props) {
           if (i === 0) return null;
 
           const isActive = i === active;
-          const shouldLoad = i === 1 || extraSlidesReady;
-
-          if (!shouldLoad) return null;
+          const isNext = i === nextIndex && nextIndex !== 0;
+          if (!isActive && !isNext) return null;
 
           return (
             <div
@@ -104,8 +95,8 @@ export function HeroSlider({ onSlideChange }: Props) {
                 src={slide.src}
                 alt={isActive ? slide.alt : ""}
                 fill
-                loading="lazy"
-                quality={70}
+                loading={isActive ? "eager" : "lazy"}
+                quality={65}
                 sizes="100vw"
                 className="object-cover object-center"
               />
@@ -160,7 +151,7 @@ export function HeroSlider({ onSlideChange }: Props) {
         ))}
       </div>
 
-      {!paused && (
+      {!paused && active > 0 && (
         <div className="absolute bottom-0 left-0 z-20 h-0.5 w-full bg-white/10" aria-hidden>
           <div
             key={active}

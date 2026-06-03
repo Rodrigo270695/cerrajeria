@@ -14,8 +14,8 @@ export function HeroLcpBackground() {
         fill
         priority
         fetchPriority="high"
-        quality={70}
-        sizes="100vw"
+        quality={65}
+        sizes="(max-width: 768px) 100vw, 1280px"
         className="object-cover object-center"
       />
       <HeroOverlays />

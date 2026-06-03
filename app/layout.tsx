@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Asap_Condensed } from "next/font/google";
 import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
-import { GoogleAds } from "@/components/analytics/GoogleAds";
-import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 import { SITE } from "@/lib/site";
@@ -101,8 +99,6 @@ export default function RootLayout({
         >
           Saltar al contenido principal
         </a>
-        <GoogleTagManager />
-        <GoogleAds />
         <DeferredAnalytics />
         {children}
       </body>

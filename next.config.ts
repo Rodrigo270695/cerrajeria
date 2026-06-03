@@ -16,7 +16,8 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     // Tamaños de dispositivo optimizados para LCP
     deviceSizes: [390, 640, 768, 1024, 1280, 1440, 1920],
-    imageSizes: [32, 64, 96, 128, 256],
+    imageSizes: [32, 64, 96, 128, 176, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 
   // Headers de seguridad y performance

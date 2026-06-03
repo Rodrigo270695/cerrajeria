@@ -26,7 +26,7 @@ export function Footer() {
                 width={210}
                 height={68}
                 className="h-14 w-auto max-w-[210px] object-contain brightness-95 transition-opacity group-hover:opacity-80"
-                unoptimized
+                sizes="210px"
               />
             </Link>
             <p className="mt-5 text-sm leading-relaxed text-marketing-highlight/70">

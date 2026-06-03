@@ -37,6 +37,7 @@ export function About({ district }: AboutProps) {
                   fill
                   loading="lazy"
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={65}
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-marketing/30 to-transparent" />

@@ -125,6 +125,7 @@ export function Contact({ district }: ContactProps) {
                 fill
                 loading="lazy"
                 sizes="(max-width: 1024px) 100vw, 45vw"
+                quality={65}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-marketing/50 via-transparent to-transparent" />
