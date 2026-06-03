@@ -20,9 +20,7 @@ const paymentMethods = [
 
 export function Hero({ district }: HeroProps) {
   const locationLabel = district ? district.name : "Lima";
-  const locationLine = district
-    ? `EN ${district.name.toUpperCase()} · 24 HORAS`
-    : "EN LIMA · 24 HORAS";
+  const locationDisplay = locationLabel.toUpperCase();
 
   return (
     <section
@@ -72,9 +70,27 @@ export function Hero({ district }: HeroProps) {
               </span>
             </h1>
 
-            {/* Location */}
-            <p className="mt-3 text-sm font-bold uppercase tracking-[0.25em] text-white/55 sm:text-base">
-              {locationLine}
+            {/* Ubicación — distrito/Lima destacado */}
+            <p
+              className="mt-5 flex flex-wrap items-end gap-x-3 gap-y-2"
+              aria-label={`Cerrajero en ${locationLabel}, atención 24 horas`}
+            >
+              <span className="pb-1 text-xs font-bold uppercase tracking-[0.32em] text-white/45 sm:text-sm">
+                En
+              </span>
+              <span
+                className={`text-3xl font-bold uppercase leading-none tracking-tight drop-shadow-lg sm:text-4xl lg:text-[2.85rem] ${
+                  district
+                    ? "text-gradient-brand hero-location-glow"
+                    : "text-gradient-marketing"
+                }`}
+              >
+                {locationDisplay}
+              </span>
+              <span className="pb-1 text-sm font-bold uppercase tracking-[0.2em] text-white/55 sm:text-base">
+                <span className="text-brand">24</span>
+                <span className="text-white/70"> Horas</span>
+              </span>
             </p>
 
             {/* Phone — focal point con glow pulsante */}

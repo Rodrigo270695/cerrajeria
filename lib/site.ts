@@ -1,14 +1,18 @@
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+  "https://cerrajeriaflash.pe";
+
 export const SITE = {
-  name: "Cerrajero.pe",
+  name: "Cerrajería Flash",
   title: "Cerrajero en Lima a Domicilio — Atención 24 Horas",
   description:
     "Aperturas de autos, puertas y cajas fuertes. Cambio y reparación de cerraduras. Servicio de cerrajería a domicilio 24 horas en Lima. Llama al 918 282 901.",
-  url: "https://cerrajero.pe",
+  url: siteUrl,
   locale: "es_PE",
   phone: "918 282 901",
   phoneRaw: "918282901",
   phoneE164: "+51918282901",
-  email: "info@cerrajero.pe",
+  email: "info@cerrajeriaflash.pe",
   streetAddress: "Jr. Enrique Seoane 324",
   addressLocality: "San Borja",
   addressRegion: "Lima",

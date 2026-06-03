@@ -1,4 +1,4 @@
-/** IDs del sitio original cerrajero.pe — configurables por entorno */
+/** IDs de Google Tag Manager / Ads — configurables por entorno */
 export const ANALYTICS = {
   gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-KNZLBFS",
   googleAdsId: process.env.NEXT_PUBLIC_GA_ADS_ID ?? "AW-722383499",

@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 import { benefits } from "@/lib/content";
 import type { District } from "@/lib/districts";
+import { SITE } from "@/lib/site";
 
 type BenefitsProps = {
   district?: District;
@@ -23,7 +24,7 @@ export function Benefits({ district }: BenefitsProps) {
             title="que marcan la diferencia"
             description={
               district
-                ? `Cerrajeros especializados en ${district.name} con la confianza de Cerrajero.pe.`
+                ? `Cerrajeros especializados en ${district.name} con la confianza de ${SITE.name}.`
                 : "Profesionales en cerrajería fina con los mejores cerrajeros a domicilio en Lima."
             }
           />

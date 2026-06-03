@@ -1,4 +1,4 @@
-/** Colores oficiales de cerrajero.pe — Dark/Blue Metallic */
+/** Colores de marca Cerrajería Flash — Dark/Blue Metallic */
 export const BRAND = {
   orange: "#ff941f",
   orangeAlt: "#fd9f39",

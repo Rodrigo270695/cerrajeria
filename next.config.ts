@@ -7,13 +7,6 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cerrajero.pe",
-        pathname: "/img/**",
-      },
-    ],
     formats: ["image/avif", "image/webp"],
     // Tamaños de dispositivo optimizados para LCP
     deviceSizes: [390, 640, 768, 1024, 1280, 1440, 1920],
