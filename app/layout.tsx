@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Asap_Condensed } from "next/font/google";
-import {
-  GoogleTagManagerHead,
-  GoogleTagManagerNoScript,
-} from "@/components/analytics/GoogleTagManager";
 import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
@@ -107,7 +103,6 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${asap.variable} scroll-smooth`}>
       <head>
-        <GoogleTagManagerHead />
         <link
           rel="preload"
           as="image"
@@ -129,12 +124,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
-        <GoogleTagManagerNoScript />
-        {/* Skip link — accesibilidad: permite saltar al contenido principal */}
-        <a
-          href="#main-content"
-          className="skip-link"
-        >
+        <a href="#main-content" className="skip-link">
           Saltar al contenido principal
         </a>
         <SiteAnalytics />

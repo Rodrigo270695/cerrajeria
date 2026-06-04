@@ -2,6 +2,8 @@
 
 Contenedor activo: **GTM-TD47QX9S** (Cerrajería Flash).
 
+El snippet GTM se inserta en el HTML estático al hacer `npm run build` (`scripts/inject-gtm-html.mjs`), en `<head>` y al inicio de `<body>`, para que Google y “Ver código fuente” lo detecten.
+
 ```env
 NEXT_PUBLIC_GTM_ID=GTM-TD47QX9S
 ```
