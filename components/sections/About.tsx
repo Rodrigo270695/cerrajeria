@@ -89,8 +89,8 @@ export function About({ district }: AboutProps) {
                 </p>
                 <p>
                   Contamos con todas las herramientas necesarias: aperturas de
-                  puertas, autos, cajas fuertes, cambio de cerraduras, duplicado
-                  de llaves, reparación y soldadura de chapas.
+                  puertas, autos, cajas fuertes, cambio de cerraduras,
+                  reparación y soldadura de chapas.
                 </p>
               </div>
 

@@ -7,7 +7,7 @@ type FeaturesProps = {
   district?: District;
 };
 
-const featureIcons = ["🗺️", "🔑", "🔧", "💳"] as const;
+const featureIcons = ["🗺️", "⏰", "🔧", "💳"] as const;
 
 export function Features({ district }: FeaturesProps) {
   const localizedFeatures = features.map((f, i) =>

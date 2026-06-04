@@ -81,7 +81,7 @@ export const benefits: Benefit[] = [
   },
   {
     title: "Herramientas completas",
-    description: "Equipamiento para puertas, autos, cajas fuertes, duplicado de llaves y más.",
+    description: "Equipamiento para puertas, autos, cajas fuertes, chapas digitales y más.",
     icon: "tool",
   },
 ];
@@ -152,9 +152,9 @@ export const features: Feature[] = [
       "Distritos del centro, sur y este con llegada rápida desde San Borja.",
   },
   {
-    title: "Duplicado de llaves",
+    title: "Atención 24 horas",
     description:
-      "Solución integral: aperturas, cambios, reparación y duplicado en un solo servicio.",
+      "Emergencias de cerrajería las 24 horas, los 7 días de la semana en Lima Metropolitana.",
   },
   {
     title: "Reparación y soldadura",

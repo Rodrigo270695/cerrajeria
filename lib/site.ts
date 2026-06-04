@@ -44,9 +44,11 @@ export function whatsappUrl(district?: string) {
   return `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
 
-/** Desde una tarjeta de SERVICIO: el cliente completa el distrito */
-export function whatsappServiceUrl(serviceName: string) {
-  const text = `Hola, quiero el servicio de *${serviceName}*. Mi distrito o ciudad es: `;
+/** Desde una tarjeta de SERVICIO: incluye distrito si ya está en la página */
+export function whatsappServiceUrl(serviceName: string, districtName?: string) {
+  const text = districtName
+    ? `Hola, quiero el servicio de *${serviceName}* en el distrito de *${districtName}*.`
+    : `Hola, quiero el servicio de *${serviceName}*. Mi distrito es: `;
   return `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
 

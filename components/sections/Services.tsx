@@ -46,7 +46,7 @@ export function Services({ district }: ServicesProps) {
         {/* 2-col grid */}
         <ul className="grid gap-5 md:grid-cols-2">
           {services.map((service, i) => {
-            const waUrl = whatsappServiceUrl(service.title);
+            const waUrl = whatsappServiceUrl(service.title, district?.name);
 
             return (
               <Reveal key={service.title} as="li" delay={i * 70}>
