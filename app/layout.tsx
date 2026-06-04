@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Asap_Condensed } from "next/font/google";
-import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
+import {
+  GoogleTagManagerHead,
+  GoogleTagManagerNoScript,
+} from "@/components/analytics/GoogleTagManager";
+import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
@@ -122,8 +126,10 @@ export default function RootLayout({
             __html: `#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}`,
           }}
         />
+        <GoogleTagManagerHead />
       </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
+        <GoogleTagManagerNoScript />
         {/* Skip link — accesibilidad: permite saltar al contenido principal */}
         <a
           href="#main-content"
@@ -131,7 +137,7 @@ export default function RootLayout({
         >
           Saltar al contenido principal
         </a>
-        <DeferredAnalytics />
+        <SiteAnalytics />
         {children}
       </body>
     </html>
