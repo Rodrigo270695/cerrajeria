@@ -107,6 +107,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${asap.variable} scroll-smooth`}>
       <head>
+        <GoogleTagManagerHead />
         <link
           rel="preload"
           as="image"
@@ -126,7 +127,6 @@ export default function RootLayout({
             __html: `#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}`,
           }}
         />
-        <GoogleTagManagerHead />
       </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
         <GoogleTagManagerNoScript />

@@ -1,20 +1,25 @@
-import Script from "next/script";
 import { ANALYTICS, isAnalyticsEnabled } from "@/lib/analytics";
 
-/** Snippet GTM en <head> — lo más arriba posible (recomendación de Google). */
+function gtmScript(gtmId: string) {
+  return `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${gtmId}');`;
+}
+
+/** Snippet GTM tal cual lo entrega Google — en <head>, lo más arriba posible. */
 export function GoogleTagManagerHead() {
   if (!isAnalyticsEnabled()) return null;
 
   const { gtmId } = ANALYTICS;
 
   return (
-    <Script id="google-tag-manager" strategy="beforeInteractive">{`
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','${gtmId}');
-    `}</Script>
+    <script
+      dangerouslySetInnerHTML={{
+        __html: gtmScript(gtmId),
+      }}
+    />
   );
 }
 
@@ -31,7 +36,6 @@ export function GoogleTagManagerNoScript() {
         height="0"
         width="0"
         style={{ display: "none", visibility: "hidden" }}
-        title="Google Tag Manager"
       />
     </noscript>
   );
