@@ -35,32 +35,16 @@ export function Hero({ district }: HeroProps) {
       <div className="relative z-10 w-full py-20 lg:py-28">
         <Container>
           <div className="max-w-[640px]">
-
-            {/* Logo */}
-            <div className="mb-8">
-              <Image
-                src="/logo.png"
-                alt={`${SITE.name} — Cerrajería a domicilio en ${locationLabel}`}
-                width={260}
-                height={84}
-                className="h-16 w-auto max-w-[260px] object-contain drop-shadow-2xl"
-                sizes="260px"
-              />
-            </div>
-
             {/* Live badge */}
             <div className="mb-5 inline-flex items-center gap-2.5 rounded-full border border-marketing-alt/30 bg-dark-deep/65 px-4 py-1.5 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-80" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-              </span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" aria-hidden />
               <span className="text-xs font-bold uppercase tracking-[0.22em] text-white/90">
                 Atendemos Ahora · 24 Horas
               </span>
             </div>
 
             {/* H1 — sin animación de opacidad para no retrasar LCP */}
-            <h1 id="hero-heading">
+            <h1 id="hero-heading" className="font-[system-ui,sans-serif]">
               <span className="block text-5xl font-bold leading-[1.0] tracking-tight text-white drop-shadow-lg sm:text-6xl lg:text-[4.25rem]">
                 Cerrajeros
               </span>
@@ -179,6 +163,7 @@ export function Hero({ district }: HeroProps) {
                     alt={alt}
                     width={64}
                     height={28}
+                    unoptimized
                     loading="lazy"
                     className="h-5 w-auto object-contain"
                   />

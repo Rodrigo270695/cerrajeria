@@ -1,7 +1,7 @@
 import { HERO_LCP } from "@/lib/constants";
 import { HeroOverlays } from "./HeroOverlays";
 
-/** LCP: AVIF/WebP estáticos + preload en layout (sin pasar por /_next/image). */
+/** LCP: AVIF estático + preload en layout. */
 export function HeroLcpBackground() {
   return (
     <div
@@ -9,19 +9,16 @@ export function HeroLcpBackground() {
       className="absolute inset-0 overflow-hidden bg-marketing-deep"
       aria-hidden
     >
-      <picture>
-        <source srcSet={HERO_LCP.avif} type="image/avif" />
-        <source srcSet={HERO_LCP.webp} type="image/webp" />
-        <img
-          src={HERO_LCP.webp}
-          alt=""
-          width={HERO_LCP.width}
-          height={HERO_LCP.height}
-          fetchPriority="high"
-          decoding="sync"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-      </picture>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={HERO_LCP.avif}
+        alt=""
+        width={HERO_LCP.width}
+        height={HERO_LCP.height}
+        fetchPriority="high"
+        decoding="sync"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
       <HeroOverlays />
     </div>
   );

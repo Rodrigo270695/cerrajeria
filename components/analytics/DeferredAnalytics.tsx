@@ -32,15 +32,15 @@ export function DeferredAnalytics() {
 
   if (!isAnalyticsEnabled()) return null;
 
+  if (!enabled) return null;
+
   return (
     <>
-      {enabled ? (
-        <Script
-          id="google-tag-manager"
-          strategy="lazyOnload"
-          dangerouslySetInnerHTML={{ __html: GTM_HEAD_SCRIPT }}
-        />
-      ) : null}
+      <Script
+        id="google-tag-manager"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{ __html: GTM_HEAD_SCRIPT }}
+      />
       <ConversionTracker />
     </>
   );

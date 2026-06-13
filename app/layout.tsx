@@ -119,7 +119,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href={getSiteLogoUrl()} sizes="512x512" />
         <style
           dangerouslySetInnerHTML={{
-            __html: `#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}`,
+            __html: `#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}#hero-heading,.hero-shell h1{color:#fff;font-family:system-ui,sans-serif}.text-gradient-marketing{background:linear-gradient(135deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}`,
           }}
         />
       </head>

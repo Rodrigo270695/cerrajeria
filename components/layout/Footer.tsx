@@ -21,10 +21,11 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="group inline-block">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt={`${SITE.name} — Cerrajería a domicilio Lima`}
                 width={210}
                 height={68}
+                unoptimized
                 className="h-14 w-auto max-w-[210px] object-contain brightness-95 transition-opacity group-hover:opacity-80"
                 sizes="210px"
               />

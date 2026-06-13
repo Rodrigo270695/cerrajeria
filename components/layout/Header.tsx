@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Phone } from "lucide-react";
 import { IconPhone, IconWhatsApp } from "@/components/icons";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -26,41 +25,31 @@ const districtNavLinks = [
 
 type HeaderProps = {
   isDistrictPage?: boolean;
-  scrolled?: boolean;
 };
 
-export function Header({ isDistrictPage = false, scrolled = false }: HeaderProps) {
+export function Header({ isDistrictPage = false }: HeaderProps) {
   const navLinks = isDistrictPage ? districtNavLinks : homeNavLinks;
 
   return (
-    <header
-      className={`border-b transition-all duration-300 ${
-        scrolled
-          ? "border-marketing-alt/30 bg-marketing shadow-xl shadow-marketing/40"
-          : "border-marketing-alt/15 bg-marketing backdrop-blur-sm shadow-sm"
-      }`}
-    >
+    <header className="border-b border-marketing-alt/15 bg-marketing shadow-sm backdrop-blur-sm">
       <Container as="nav" aria-label="Navegación principal">
         <div className="flex h-[64px] items-center justify-between lg:h-[74px]">
-
-          {/* Logo */}
           <Link
             href="/"
             className="group flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-marketing-highlight"
             aria-label={`${SITE.name} - Inicio`}
           >
             <Image
-              src="/logo.png"
+              src="/logo.webp"
               alt={SITE.name}
               width={200}
               height={65}
+              unoptimized
               className="h-9 w-auto max-w-[160px] object-contain transition-opacity duration-200 group-hover:opacity-80 sm:h-10 lg:h-[50px] lg:max-w-[200px]"
-              loading="lazy"
               sizes="200px"
             />
           </Link>
 
-          {/* Desktop: nav links */}
           <ul className="hidden items-center gap-5 lg:flex xl:gap-7">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -74,7 +63,6 @@ export function Header({ isDistrictPage = false, scrolled = false }: HeaderProps
             ))}
           </ul>
 
-          {/* Desktop: CTAs */}
           <div className="hidden items-center gap-2.5 lg:flex">
             <a
               href={telUrl()}
@@ -96,20 +84,16 @@ export function Header({ isDistrictPage = false, scrolled = false }: HeaderProps
             </Button>
           </div>
 
-          {/* Mobile: solo botones de acción directa — sin hamburguesa */}
           <div className="flex items-center gap-2 lg:hidden">
-            {/* Llamar — icono + número en pantallas medianas */}
             <a
               href={telUrl()}
               aria-label={`Llamar al ${SITE.phone}`}
               className="flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-2.5 text-xs font-bold text-white transition-all active:scale-95 hover:bg-white/20"
             >
-              <Phone className="h-4 w-4 shrink-0" aria-hidden />
+              <IconPhone className="h-4 w-4 shrink-0" aria-hidden />
               <span className="hidden sm:inline">{SITE.phone}</span>
               <span className="sm:hidden">Llamar</span>
             </a>
-
-            {/* WhatsApp */}
             <a
               href={whatsappUrl()}
               target="_blank"
