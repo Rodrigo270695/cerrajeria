@@ -11,7 +11,7 @@ export function WhatsAppButton({ districtName }: WhatsAppButtonProps) {
       href={whatsappUrl(districtName)}
       target="_blank"
       rel="noopener noreferrer"
-      className="group fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-whatsapp/40 transition-transform hover:scale-110 hover:bg-whatsapp-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp sm:bottom-6 sm:right-6 animate-lock-pulse"
+      className="group fixed bottom-20 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-whatsapp/40 transition-transform hover:scale-110 hover:bg-whatsapp-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp sm:bottom-6 sm:right-6"
       aria-label="Contactar por WhatsApp"
     >
       <IconWhatsApp className="h-7 w-7" />

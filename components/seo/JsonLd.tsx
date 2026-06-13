@@ -1,163 +1,75 @@
 import { faqs, services } from "@/lib/content";
-import {
-  DISTRICTS,
-  getDistrictUrl,
-  type District,
-} from "@/lib/districts";
+import { getDistrictUrl, type District } from "@/lib/districts";
 import { SITE, getSiteLogoUrl } from "@/lib/site";
 
 type JsonLdProps = {
   district?: District;
 };
 
+/** Schema compacto — menos bytes en el HTML inicial. */
 export function JsonLd({ district }: JsonLdProps) {
   const pageUrl = district ? getDistrictUrl(district.slug) : SITE.url;
-
   const logoUrl = getSiteLogoUrl();
 
-  const localBusiness = {
-    "@context": "https://schema.org",
-    "@type": "Locksmith",
-    "@id": `${SITE.url}/#organization`,
-    name: district ? `${SITE.name} - ${district.name}` : SITE.name,
-    url: pageUrl,
-    logo: {
-      "@type": "ImageObject",
-      url: logoUrl,
-      width: SITE.logoSize,
-      height: SITE.logoSize,
-    },
-    image: [logoUrl, `${SITE.url}/opengraph-image`],
-    telephone: SITE.phoneE164,
-    email: SITE.email,
-    priceRange: "$$",
-    description: district
-      ? `Cerrajero a domicilio 24 horas en ${district.name}, Lima.`
-      : SITE.description,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE.streetAddress,
-      addressLocality: SITE.addressLocality,
-      addressRegion: SITE.addressRegion,
-      postalCode: SITE.postalCode,
-      addressCountry: SITE.addressCountry,
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: SITE.geo.latitude,
-      longitude: SITE.geo.longitude,
-    },
-    areaServed: district
-      ? [
-          {
-            "@type": "City",
-            name: `${district.name}, Lima`,
-          },
-        ]
-      : DISTRICTS.map((item) => ({
-          "@type": "City",
-          name: `${item.name}, Lima`,
-        })),
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
-      opens: "00:00",
-      closes: "23:59",
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Servicios de cerrajería",
-      itemListElement: services.map((service, index) => ({
-        "@type": "Offer",
-        position: index + 1,
-        itemOffered: {
-          "@type": "Service",
+  const graph = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Locksmith",
+      "@id": `${SITE.url}/#organization`,
+      name: district ? `${SITE.name} - ${district.name}` : SITE.name,
+      url: pageUrl,
+      logo: logoUrl,
+      telephone: SITE.phoneE164,
+      email: SITE.email,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: SITE.streetAddress,
+        addressLocality: SITE.addressLocality,
+        addressRegion: SITE.addressRegion,
+        addressCountry: SITE.addressCountry,
+      },
+      areaServed: district
+        ? `${district.name}, Lima`
+        : "Lima Metropolitana",
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Servicios de cerrajería",
+        itemListElement: services.map((service, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
           name: service.title,
-          description: service.description,
-        },
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
       })),
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "127",
-      bestRating: "5",
-    },
-  };
-
-  const website = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${SITE.url}/#website`,
-    url: SITE.url,
-    name: SITE.name,
-    description: SITE.description,
-    inLanguage: "es-PE",
-    publisher: { "@id": `${SITE.url}/#organization` },
-  };
-
-  const faqPage = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-
-  const breadcrumb = district
-    ? {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Inicio",
-            item: SITE.url,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: `Cerrajero en ${district.name}`,
-            item: pageUrl,
-          },
-        ],
-      }
-    : null;
+  ];
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }}
-      />
-      {breadcrumb && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-        />
-      )}
-    </>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+    />
   );
 }

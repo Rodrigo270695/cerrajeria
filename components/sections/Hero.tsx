@@ -83,9 +83,8 @@ export function Hero({ district }: HeroProps) {
               aria-label={`Llamar al ${SITE.phone}`}
             >
               {/* Pulsing icon */}
-              <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand shadow-lg">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-50" />
-                <svg viewBox="0 0 24 24" fill="white" className="relative h-5 w-5" aria-hidden>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand shadow-lg">
+                <svg viewBox="0 0 24 24" fill="white" className="h-5 w-5" aria-hidden>
                   <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
                 </svg>
               </span>

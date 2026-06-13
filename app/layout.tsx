@@ -1,19 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Asap_Condensed } from "next/font/google";
 import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
-import { SITE, getSiteLogoUrl } from "@/lib/site";
-
-const asap = Asap_Condensed({
-  subsets: ["latin"],
-  weight: ["700"],
-  variable: "--font-asap",
-  display: "swap",
-  preload: false,
-  adjustFontFallback: true,
-});
+import { SITE } from "@/lib/site";
 
 export const viewport: Viewport = {
   themeColor: BRAND.marketing,
@@ -95,13 +85,22 @@ export const metadata: Metadata = {
   },
 };
 
+const criticalCss = `
+#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}
+#hero-heading,.hero-shell h1{color:#fff;font-family:system-ui,sans-serif}
+.text-gradient-marketing{background:linear-gradient(135deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-phone-link{color:#fff}
+.marquee-track{animation:none}
+@media(min-width:768px){.marquee-track{animation:marquee-scroll 28s linear infinite}}
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${asap.variable} scroll-smooth`}>
+    <html lang="es">
       <head>
         <link
           rel="preload"
@@ -110,25 +109,16 @@ export default function RootLayout({
           type="image/avif"
           fetchPriority="high"
         />
-        <link
-          rel="icon"
-          href={getSiteLogoUrl()}
-          type="image/png"
-          sizes="512x512"
-        />
-        <link rel="apple-touch-icon" href={getSiteLogoUrl()} sizes="512x512" />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}#hero-heading,.hero-shell h1{color:#fff;font-family:system-ui,sans-serif}.text-gradient-marketing{background:linear-gradient(135deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}`,
-          }}
-        />
+        <link rel="icon" href="/logoico.png" type="image/png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/logoico.png" sizes="512x512" />
+        <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
       </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
         <a href="#main-content" className="skip-link">
           Saltar al contenido principal
         </a>
-        <DeferredAnalytics />
         {children}
+        <DeferredAnalytics />
       </body>
     </html>
   );

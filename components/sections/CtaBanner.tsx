@@ -36,10 +36,7 @@ export function CtaBanner({ district }: CtaBannerProps) {
         <Reveal>
           {/* Eyebrow */}
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.22em] text-white">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-90" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-            </span>
+            <span className="inline-flex h-2 w-2 rounded-full bg-brand" aria-hidden />
             Emergencia 24 horas
           </p>
 
