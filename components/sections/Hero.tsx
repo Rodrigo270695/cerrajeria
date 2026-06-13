@@ -44,7 +44,6 @@ export function Hero({ district }: HeroProps) {
                 width={260}
                 height={84}
                 className="h-16 w-auto max-w-[260px] object-contain drop-shadow-2xl"
-                loading="lazy"
                 sizes="260px"
               />
             </div>

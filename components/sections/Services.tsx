@@ -66,8 +66,8 @@ export function Services({ district }: ServicesProps) {
                         src={service.photo}
                         alt={service.alt}
                         fill
+                        unoptimized
                         loading="lazy"
-                        quality={60}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 640px) 144px, 176px"
                       />

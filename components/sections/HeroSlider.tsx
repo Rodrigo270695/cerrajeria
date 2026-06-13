@@ -95,8 +95,8 @@ export function HeroSlider({ onSlideChange }: Props) {
                 src={slide.src}
                 alt={isActive ? slide.alt : ""}
                 fill
-                loading={isActive ? "eager" : "lazy"}
-                quality={65}
+                loading="lazy"
+                quality={55}
                 sizes="100vw"
                 className="object-cover object-center"
               />

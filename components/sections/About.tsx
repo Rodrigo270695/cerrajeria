@@ -32,12 +32,12 @@ export function About({ district }: AboutProps) {
               {/* Main image */}
               <div className="group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl ring-1 ring-marketing-alt/20">
                 <Image
-                  src="/hero/about-servicio.jpeg"
+                  src="/hero/about-servicio.webp"
                   alt={`Servicio de cerrajería a domicilio 24 horas en ${location}`}
                   fill
+                  unoptimized
                   loading="lazy"
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  quality={65}
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-marketing/30 to-transparent" />

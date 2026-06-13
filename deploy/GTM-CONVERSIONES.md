@@ -1,22 +1,18 @@
 # Conversiones con Google Tag Manager
 
-Contenedor activo: **GTM-TD47QX9S** (Cerrajería Flash).
-
-El snippet GTM se inserta en el HTML estático al hacer `npm run build` (`scripts/inject-gtm-html.mjs`), en `<head>` y al inicio de `<body>`, para que Google y “Ver código fuente” lo detecten.
+Contenedor: **GTM-TD47QX9S** (Cerrajería Flash).
 
 ```env
 NEXT_PUBLIC_GTM_ID=GTM-TD47QX9S
 ```
 
-## Eventos que envía la web
+GTM se carga **diferido** (scroll, clic o 8 s) para no bajar PageSpeed. Las conversiones usan `dataLayer` vía `ConversionTracker`.
 
-| Evento (Custom Event) | Cuándo se dispara        |
-|-----------------------|--------------------------|
-| `phone_click`         | Clic en enlace `tel:`    |
-| `whatsapp_click`      | Clic en enlace WhatsApp  |
+## Eventos en la web
 
-## Configurar en GTM
+| Evento | Cuándo |
+|--------|--------|
+| `phone_click` | Clic en `tel:` |
+| `whatsapp_click` | Clic en WhatsApp |
 
-1. **Activadores** → Nuevo → **Evento personalizado** → `phone_click` (repetir para `whatsapp_click`).
-2. **Etiquetas** → Conversión de Google Ads (o GA4) → activador correspondiente.
-3. Publicar contenedor.
+Configura activadores Custom Event en GTM y publica el contenedor.

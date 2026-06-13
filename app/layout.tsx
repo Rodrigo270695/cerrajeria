@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Asap_Condensed } from "next/font/google";
-import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
+import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
@@ -11,7 +11,7 @@ const asap = Asap_Condensed({
   weight: ["700"],
   variable: "--font-asap",
   display: "swap",
-  preload: true,
+  preload: false,
   adjustFontFallback: true,
 });
 
@@ -127,7 +127,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Saltar al contenido principal
         </a>
-        <SiteAnalytics />
+        <DeferredAnalytics />
         {children}
       </body>
     </html>
