@@ -6,7 +6,14 @@ Contenedor: **GTM-TD47QX9S** (Cerrajería Flash).
 NEXT_PUBLIC_GTM_ID=GTM-TD47QX9S
 ```
 
-GTM se carga **diferido** (scroll, clic o 8 s) para no bajar PageSpeed. Las conversiones usan `dataLayer` vía `ConversionTracker`.
+## Instalación
+
+El snippet oficial va en el HTML:
+
+- **`<head>`** — script GTM (`GoogleTagManagerHead` en `app/layout.tsx`)
+- **`<body>`** — `<noscript>` con iframe (`GoogleTagManagerNoScript`)
+
+Tras `npm run build`, `scripts/inject-gtm-html.mjs` inserta las etiquetas en el HTML estático para que Google y “Ver código fuente” las detecten.
 
 ## Eventos en la web
 

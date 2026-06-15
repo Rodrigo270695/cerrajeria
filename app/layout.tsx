@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
+import {
+  GoogleTagManagerHead,
+  GoogleTagManagerNoScript,
+} from "@/components/analytics/GoogleTagManager";
+import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
@@ -102,6 +106,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <GoogleTagManagerHead />
         <link
           rel="preload"
           as="image"
@@ -114,11 +119,12 @@ export default function RootLayout({
         <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
       </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
+        <GoogleTagManagerNoScript />
         <a href="#main-content" className="skip-link">
           Saltar al contenido principal
         </a>
         {children}
-        <DeferredAnalytics />
+        <SiteAnalytics />
       </body>
     </html>
   );
