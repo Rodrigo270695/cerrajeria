@@ -1,5 +1,7 @@
-import { DeferredUiChrome } from "@/components/layout/DeferredUiChrome";
 import { StickyNav } from "@/components/layout/StickyNav";
+import { MobileCallBar } from "@/components/layout/MobileCallBar";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { BackToTopDeferred } from "@/components/layout/BackToTopDeferred";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Hero } from "@/components/sections/Hero";
 import { MarqueeStrip } from "@/components/sections/MarqueeStrip";
@@ -25,7 +27,11 @@ export function LandingPage({ district }: LandingPageProps) {
         <FAQ district={district} />
         <LandingBelowFold district={district} />
       </main>
-      <DeferredUiChrome districtName={district?.name} />
+      {/* Componentes fijos — server components, sin JS ni CLS */}
+      <WhatsAppButton districtName={district?.name} />
+      <MobileCallBar />
+      {/* BackToTop: único componente client-side real */}
+      <BackToTopDeferred />
       <JsonLd district={district} />
     </>
   );

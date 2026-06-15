@@ -99,6 +99,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        {/* Preload LCP antes que cualquier otra cosa */}
         <link
           rel="preload"
           as="image"
@@ -106,7 +107,11 @@ export default function RootLayout({
           type="image/avif"
           fetchPriority="high"
         />
+        {/* CSS crítico para pintar hero + nav sin esperar el bundle */}
         <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
+        {/* Preconectar a GTM/GA para que la carga diferida sea rápida */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="icon" href="/logoico.png" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/logoico.png" sizes="512x512" />
       </head>

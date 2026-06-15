@@ -3,28 +3,25 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-const ConversionTracker = dynamic(
-  () =>
-    import("@/components/analytics/ConversionTracker").then((m) => ({
-      default: m.ConversionTracker,
-    })),
+const BackToTop = dynamic(
+  () => import("@/components/layout/BackToTop").then((m) => ({ default: m.BackToTop })),
   { ssr: false },
 );
 
-/** ConversionTracker carga solo tras idle — sin bloquear TBT inicial. */
-export function SiteAnalytics() {
+/** Carga BackToTop solo tras idle — cero impacto en TBT inicial. */
+export function BackToTopDeferred() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const load = () => setReady(true);
     const win = window as Window & { requestIdleCallback?: (cb: () => void, opts?: object) => void };
     if (win.requestIdleCallback) {
-      win.requestIdleCallback(load, { timeout: 4000 });
+      win.requestIdleCallback(load, { timeout: 5000 });
     } else {
       window.addEventListener("load", load, { once: true });
     }
   }, []);
 
   if (!ready) return null;
-  return <ConversionTracker />;
+  return <BackToTop />;
 }
