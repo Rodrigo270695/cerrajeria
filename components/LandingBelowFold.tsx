@@ -3,6 +3,19 @@
 import dynamic from "next/dynamic";
 import type { District } from "@/lib/districts";
 
+const Services = dynamic(
+  () =>
+    import("@/components/sections/Services").then((m) => ({
+      default: m.Services,
+    })),
+  { ssr: false },
+);
+
+const FAQ = dynamic(
+  () => import("@/components/sections/FAQ").then((m) => ({ default: m.FAQ })),
+  { ssr: false },
+);
+
 const Benefits = dynamic(
   () =>
     import("@/components/sections/Benefits").then((m) => ({
@@ -71,6 +84,8 @@ type Props = {
 export function LandingBelowFold({ district }: Props) {
   return (
     <>
+      <Services district={district} />
+      <FAQ district={district} />
       <Benefits district={district} />
       <CtaBanner district={district} />
       <Features district={district} />

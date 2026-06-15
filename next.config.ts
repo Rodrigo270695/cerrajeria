@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+const lcpPreloadHint =
+  "</hero/perfil-lcp.avif>; rel=preload; as=image; type=image/avif; fetchpriority=high";
+
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
@@ -21,6 +24,10 @@ const nextConfig: NextConfig = {
         source: "/",
         headers: [
           {
+            key: "Link",
+            value: lcpPreloadHint,
+          },
+          {
             key: "Cache-Control",
             value: "public, max-age=0, must-revalidate, s-maxage=3600, stale-while-revalidate=86400",
           },
@@ -29,6 +36,10 @@ const nextConfig: NextConfig = {
       {
         source: "/en-:district",
         headers: [
+          {
+            key: "Link",
+            value: lcpPreloadHint,
+          },
           {
             key: "Cache-Control",
             value: "public, max-age=0, must-revalidate, s-maxage=3600, stale-while-revalidate=86400",

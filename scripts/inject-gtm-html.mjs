@@ -1,12 +1,12 @@
 /**
- * Inserta GTM en el HTML estático tras `next build`.
- * - Script DESPUÉS del preload LCP (no bloquea pintado)
- * - gtm.js diferido (requestIdleCallback)
- * - Elimina duplicados del layout + inserciones previas
+ * Optimiza el HTML estático tras `next build`:
+ * - CSS crítico + GTM diferido justo después del preload LCP
+ * - CSS principal sin bloqueo de renderizado
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { CRITICAL_CSS_TAG } from "../lib/critical-css.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.join(__dirname, "..", ".next", "server", "app");
@@ -24,8 +24,6 @@ const headSnippet = `<!-- Google Tag Manager --><script>window.dataLayer=window.
 const bodySnippet = `<!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->`;
 
 const preloadNeedle = 'href="/hero/perfil-lcp.avif"';
-
-const criticalCssTag = `<style>#hero-lcp-bg,.hero-shell{background-color:#0a1929}#hero-heading,.hero-shell h1{color:#fff;font-family:system-ui,sans-serif}.text-gradient-marketing{background:linear-gradient(135deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-phone-link{color:#fff}.marquee-track{animation:none}@media(min-width:768px){.marquee-track{animation:marquee-scroll 28s linear infinite}}</style>`;
 
 function stripExistingGtm(html) {
   return html
@@ -48,6 +46,14 @@ function stripExistingGtm(html) {
     .replace(/<style>\s*#hero-lcp-bg[\s\S]*?<\/style>/g, "");
 }
 
+/** Evita que el bundle CSS de Next bloquee el LCP. */
+function asyncStylesheets(html) {
+  return html.replace(
+    /<link rel="stylesheet" href="(\/_next\/static\/[^"]+\.css)"([^>]*)\/>/g,
+    '<link rel="preload" href="$1" as="style"$2 onload="this.onload=null;this.rel=\'stylesheet\'"/><noscript><link rel="stylesheet" href="$1"$2/></noscript>',
+  );
+}
+
 function patchFile(filePath) {
   let html = fs.readFileSync(filePath, "utf8");
   html = stripExistingGtm(html);
@@ -59,16 +65,20 @@ function patchFile(filePath) {
   if (preloadMatch) {
     html = html.replace(
       preloadMatch[0],
-      `${preloadMatch[0]}${criticalCssTag}${headSnippet}`,
+      `${preloadMatch[0]}${CRITICAL_CSS_TAG}${headSnippet}`,
     );
   } else if (html.includes("<head")) {
-    html = html.replace(/<head([^>]*)>/, `<head$1>${criticalCssTag}${headSnippet}`);
+    html = html.replace(
+      /<head([^>]*)>/,
+      `<head$1>${CRITICAL_CSS_TAG}${headSnippet}`,
+    );
   } else {
     console.warn(`[gtm] Sin preload ni <head>: ${filePath}`);
     return false;
   }
 
   html = html.replace(/<body([^>]*)>/, `<body$1>${bodySnippet}`);
+  html = asyncStylesheets(html);
 
   fs.writeFileSync(filePath, html, "utf8");
   return true;
@@ -95,4 +105,4 @@ function walk(dir) {
 }
 
 const count = walk(appDir);
-console.log(`[gtm] Snippet optimizado en ${count} HTML (${gtmId}).`);
+console.log(`[gtm] HTML optimizado en ${count} archivo(s) (${gtmId}).`);
