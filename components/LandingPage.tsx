@@ -16,7 +16,6 @@ type LandingPageProps = {
 export function LandingPage({ district }: LandingPageProps) {
   return (
     <>
-      <JsonLd district={district} />
       <StickyNav isDistrictPage={Boolean(district)} />
       <main id="main-content">
         <Hero district={district} />
@@ -27,6 +26,7 @@ export function LandingPage({ district }: LandingPageProps) {
         <LandingBelowFold district={district} />
       </main>
       <DeferredUiChrome districtName={district?.name} />
+      <JsonLd district={district} />
     </>
   );
 }

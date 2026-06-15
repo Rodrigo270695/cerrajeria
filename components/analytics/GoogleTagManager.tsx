@@ -1,11 +1,7 @@
 import { isAnalyticsEnabled } from "@/lib/analytics";
-import {
-  GTM_HEAD_SCRIPT,
-  GTM_ID,
-  GTM_NOSCRIPT_HTML,
-} from "@/lib/gtm-snippet";
+import { GTM_HEAD_SCRIPT, GTM_NOSCRIPT_HTML } from "@/lib/gtm-snippet";
 
-/** Snippet GTM en <head> — tal como lo entrega Google. */
+/** GTM en <head> — después del preload LCP en layout. */
 export function GoogleTagManagerHead() {
   if (!isAnalyticsEnabled()) return null;
 
@@ -30,5 +26,3 @@ export function GoogleTagManagerNoScript() {
     />
   );
 }
-
-export { GTM_ID, GTM_HEAD_SCRIPT, GTM_NOSCRIPT_HTML };

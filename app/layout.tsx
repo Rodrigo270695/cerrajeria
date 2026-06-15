@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import {
-  GoogleTagManagerHead,
   GoogleTagManagerNoScript,
 } from "@/components/analytics/GoogleTagManager";
 import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
-import { HERO_LCP } from "@/lib/constants";
 import { BRAND } from "@/lib/brand";
+import { CRITICAL_CSS } from "@/lib/critical-css";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 
@@ -89,14 +88,7 @@ export const metadata: Metadata = {
   },
 };
 
-const criticalCss = `
-#hero-lcp-bg,.hero-shell{background-color:${BRAND.marketingDeep}}
-#hero-heading,.hero-shell h1{color:#fff;font-family:system-ui,sans-serif}
-.text-gradient-marketing{background:linear-gradient(135deg,#93c5fd,#3b82f6);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-phone-link{color:#fff}
-.marquee-track{animation:none}
-@media(min-width:768px){.marquee-track{animation:marquee-scroll 28s linear infinite}}
-`;
+const criticalCss = CRITICAL_CSS;
 
 export default function RootLayout({
   children,
@@ -106,17 +98,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <GoogleTagManagerHead />
-        <link
-          rel="preload"
-          as="image"
-          href={HERO_LCP.avif}
-          type="image/avif"
-          fetchPriority="high"
-        />
+        <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
         <link rel="icon" href="/logoico.png" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/logoico.png" sizes="512x512" />
-        <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
       </head>
       <body className="min-h-screen font-sans antialiased pb-20 sm:pb-0">
         <GoogleTagManagerNoScript />

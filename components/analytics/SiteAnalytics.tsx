@@ -1,6 +1,16 @@
-import { ConversionTracker } from "@/components/analytics/ConversionTracker";
+"use client";
 
-/** Eventos de conversión vía dataLayer (GTM va en head/body del layout). */
+import dynamic from "next/dynamic";
+
+const ConversionTracker = dynamic(
+  () =>
+    import("@/components/analytics/ConversionTracker").then((m) => ({
+      default: m.ConversionTracker,
+    })),
+  { ssr: false },
+);
+
+/** Conversiones vía dataLayer — carga diferida, sin bloquear LCP. */
 export function SiteAnalytics() {
   return <ConversionTracker />;
 }
