@@ -1,7 +1,6 @@
 /**
- * Optimiza el HTML estático tras `next build`:
- * - CSS crítico + GTM diferido justo después del preload LCP
- * - CSS principal sin bloqueo de renderizado
+ * Inserta GTM + CSS crítico en el HTML estático tras `next build`.
+ * No altera el CSS principal (evita CLS por estilos tardíos).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -43,15 +42,11 @@ function stripExistingGtm(html) {
       /<noscript><iframe src="https:\/\/www\.googletagmanager\.com\/ns\.html\?id=[^"]+"[^>]*><\/iframe><\/noscript>/g,
       "",
     )
-    .replace(/<style>\s*#hero-lcp-bg[\s\S]*?<\/style>/g, "");
-}
-
-/** Evita que el bundle CSS de Next bloquee el LCP. */
-function asyncStylesheets(html) {
-  return html.replace(
-    /<link rel="stylesheet" href="(\/_next\/static\/[^"]+\.css)"([^>]*)\/>/g,
-    '<link rel="preload" href="$1" as="style"$2 onload="this.onload=null;this.rel=\'stylesheet\'"/><noscript><link rel="stylesheet" href="$1"$2/></noscript>',
-  );
+    .replace(/<style>\s*#hero-lcp-bg[\s\S]*?<\/style>/g, "")
+    .replace(
+      /<link rel="preload" href="(\/_next\/static\/[^"]+\.css)" as="style"([^>]*?) onload="this\.onload=null;this\.rel='stylesheet'"\/><noscript><link rel="stylesheet" href="\1"\2\/><\/noscript>/g,
+      '<link rel="stylesheet" href="$1"$2/>',
+    );
 }
 
 function patchFile(filePath) {
@@ -78,7 +73,6 @@ function patchFile(filePath) {
   }
 
   html = html.replace(/<body([^>]*)>/, `<body$1>${bodySnippet}`);
-  html = asyncStylesheets(html);
 
   fs.writeFileSync(filePath, html, "utf8");
   return true;

@@ -5,6 +5,7 @@ import {
 import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import { BRAND } from "@/lib/brand";
 import { CRITICAL_CSS } from "@/lib/critical-css";
+import { HERO_LCP } from "@/lib/constants";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 
@@ -98,6 +99,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href={HERO_LCP.avif}
+          type="image/avif"
+          fetchPriority="high"
+        />
         <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
         <link rel="icon" href="/logoico.png" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/logoico.png" sizes="512x512" />
