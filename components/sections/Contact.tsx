@@ -120,11 +120,11 @@ export function Contact({ district }: ContactProps) {
           <Reveal delay={100}>
             <div className="relative aspect-square overflow-hidden rounded-2xl shadow-2xl ring-2 ring-white/20 lg:aspect-[4/3]">
               <Image
-                src="/hero/contact-servicio.webp"
+                src="/hero/contact-servicio.jpeg"
                 alt={`Cerrajero a domicilio en ${location}`}
                 fill
-                unoptimized
                 loading="lazy"
+                quality={85}
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
               />
