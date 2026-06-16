@@ -1,16 +1,7 @@
 import { HERO_LCP } from "@/lib/constants";
 import { HeroOverlays } from "./HeroOverlays";
 
-const lcpImgStyle = {
-  position: "absolute" as const,
-  inset: 0,
-  width: "100%",
-  height: "100%",
-  objectFit: "cover" as const,
-  objectPosition: "center" as const,
-};
-
-/** LCP: AVIF estático; estilos inline para pintar sin esperar el CSS de Next. */
+/** LCP: AVIF estático + preload en layout. */
 export function HeroLcpBackground() {
   return (
     <div
@@ -25,8 +16,8 @@ export function HeroLcpBackground() {
         width={HERO_LCP.width}
         height={HERO_LCP.height}
         fetchPriority="high"
-        decoding="async"
-        style={lcpImgStyle}
+        decoding="sync"
+        className="absolute inset-0 h-full w-full object-cover object-top"
       />
       <HeroOverlays />
     </div>

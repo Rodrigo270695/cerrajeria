@@ -60,16 +60,16 @@ export function Services({ district }: ServicesProps) {
                   {/* ── Panel izquierdo ── */}
                   {service.photo ? (
                     /* Foto real — ocupa todo el panel como cover */
-                    <div className="relative w-36 shrink-0 overflow-hidden sm:w-44">
+                    <div className="relative w-32 shrink-0 overflow-hidden sm:w-40">
                       <div className="absolute inset-y-0 left-0 z-10 w-1 rounded-r bg-marketing-alt transition-all duration-300 group-hover:w-1.5 group-hover:bg-marketing" />
                       <Image
                         src={service.photo}
                         alt={service.alt}
                         fill
-                        unoptimized
                         loading="lazy"
+                        quality={80}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 640px) 144px, 176px"
+                        sizes="(max-width: 640px) 128px, 160px"
                       />
                       {/* Gradiente derecho para fusionar con el contenido */}
                       <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white to-transparent" />
@@ -97,7 +97,7 @@ export function Services({ district }: ServicesProps) {
                   )}
 
                   {/* ── Contenido derecho ── */}
-                  <div className="flex flex-1 flex-col justify-between p-5 lg:p-6">
+                  <div className="flex flex-1 flex-col justify-between p-4 lg:p-5">
                     <div>
                       <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-marketing-alt/60">
                         Servicio {String(i + 1).padStart(2, "0")}
@@ -111,7 +111,7 @@ export function Services({ district }: ServicesProps) {
                     </div>
 
                     {/* WhatsApp CTA */}
-                    <div className="mt-5 flex items-center justify-between">
+                    <div className="mt-4 flex items-center justify-between">
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-whatsapp/25 bg-whatsapp/8 px-3 py-1.5 text-xs font-bold text-whatsapp transition-all duration-300 group-hover:bg-whatsapp group-hover:text-white group-hover:border-whatsapp">
                         <IconWhatsApp className="h-3.5 w-3.5" aria-hidden />
                         Solicitar por WhatsApp

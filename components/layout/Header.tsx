@@ -31,7 +31,7 @@ export function Header({ isDistrictPage = false }: HeaderProps) {
   const navLinks = isDistrictPage ? districtNavLinks : homeNavLinks;
 
   return (
-    <header className="border-b border-marketing-alt/15 bg-marketing shadow-sm">
+    <header className="border-b border-marketing-alt/15 bg-marketing shadow-sm backdrop-blur-sm">
       <Container as="nav" aria-label="Navegación principal">
         <div className="flex h-[64px] items-center justify-between lg:h-[74px]">
           <Link
