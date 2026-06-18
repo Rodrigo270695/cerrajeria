@@ -8,17 +8,18 @@ const BackToTop = dynamic(
   { ssr: false },
 );
 
-/** Carga BackToTop solo tras idle — cero impacto en TBT inicial. */
+/** BackToTop tras load + 5s — sin impacto en TBT inicial. */
 export function BackToTopDeferred() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const load = () => setReady(true);
-    const win = window as Window & { requestIdleCallback?: (cb: () => void, opts?: object) => void };
-    if (win.requestIdleCallback) {
-      win.requestIdleCallback(load, { timeout: 5000 });
+    const go = () => window.setTimeout(load, 5000);
+
+    if (document.readyState === "complete") {
+      go();
     } else {
-      window.addEventListener("load", load, { once: true });
+      window.addEventListener("load", go, { once: true });
     }
   }, []);
 

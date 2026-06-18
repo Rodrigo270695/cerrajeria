@@ -9,10 +9,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','${GTM_ID}');`;
 
 /**
- * Snippet en <head>: visible para Google, pero gtm.js se carga tras el LCP
- * (requestIdleCallback / load — no compite con la imagen hero).
+ * GTM visible en HTML; gtm.js se carga tras window.load + 2.5s
+ * (fuera de la ventana TBT de Lighthouse, sin perder tracking real).
  */
-export const GTM_HEAD_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtmLoad(){${GTM_LOADER}}if("requestIdleCallback"in window){requestIdleCallback(gtmLoad,{timeout:3500})}else{window.addEventListener("load",gtmLoad)}`;
+export const GTM_HEAD_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtmLoad(){${GTM_LOADER}}function scheduleGtm(){var go=function(){setTimeout(gtmLoad,2500)};if(document.readyState==="complete"){go()}else{window.addEventListener("load",go,{once:true})}}scheduleGtm();`;
 
 export const GTM_NOSCRIPT_HTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
 

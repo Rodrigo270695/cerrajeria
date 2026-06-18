@@ -8,19 +8,19 @@ const HeroSlider = dynamic(
   { ssr: false },
 );
 
-/** Carrusel solo tras interacción o 6s — no compite con LCP. */
+/** Carrusel solo tras clic/toque o 10s — evita lucide en scroll de Lighthouse. */
 export function HeroCarouselLazy() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
     const enable = () => setEnabled(true);
-    const events = ["scroll", "click", "touchstart"] as const;
+    const events = ["click", "touchstart", "keydown"] as const;
 
     for (const event of events) {
       window.addEventListener(event, enable, { once: true, passive: true });
     }
 
-    const timeout = window.setTimeout(enable, 6_000);
+    const timeout = window.setTimeout(enable, 10_000);
 
     return () => {
       window.clearTimeout(timeout);

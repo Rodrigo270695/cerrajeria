@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/inject-gtm-html.mjs",
+    "build": "node scripts/generate-lcp-image.mjs && next build && node scripts/inject-gtm-html.mjs",
     "start": "next start",
     "optimize-images": "node scripts/optimize-images.mjs",
     "generate-lcp": "node scripts/generate-lcp-image.mjs",

@@ -120,7 +120,7 @@ export function Contact({ district }: ContactProps) {
           <Reveal delay={100}>
             <div className="relative aspect-square overflow-hidden rounded-2xl shadow-2xl ring-2 ring-white/20 lg:aspect-[4/3]">
               <Image
-                src="/hero/contact-servicio.jpeg"
+                src="/hero/contact-servicio.jpg"
                 alt={`Cerrajero a domicilio en ${location}`}
                 fill
                 loading="lazy"

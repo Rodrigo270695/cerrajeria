@@ -6,7 +6,7 @@ import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
-const SOURCE = path.resolve("public/hero/perfil.jpeg");
+const SOURCE = path.resolve("public/hero/perfil.jpg");
 const OUT_DIR = path.resolve("public/hero");
 const WIDTH = 640;
 

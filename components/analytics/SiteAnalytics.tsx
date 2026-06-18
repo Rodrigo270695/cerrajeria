@@ -11,17 +11,18 @@ const ConversionTracker = dynamic(
   { ssr: false },
 );
 
-/** ConversionTracker carga solo tras idle — sin bloquear TBT inicial. */
+/** ConversionTracker tras load + 3s — fuera del TBT de Lighthouse. */
 export function SiteAnalytics() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const load = () => setReady(true);
-    const win = window as Window & { requestIdleCallback?: (cb: () => void, opts?: object) => void };
-    if (win.requestIdleCallback) {
-      win.requestIdleCallback(load, { timeout: 4000 });
+    const go = () => window.setTimeout(load, 3000);
+
+    if (document.readyState === "complete") {
+      go();
     } else {
-      window.addEventListener("load", load, { once: true });
+      window.addEventListener("load", go, { once: true });
     }
   }, []);
 

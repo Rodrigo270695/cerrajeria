@@ -9,12 +9,12 @@ export const HERO_SLIDE_INTERVAL = 5_000;
 
 /** Slides del hero carousel */
 export const HERO_SLIDES = [
-  { src: "/hero/perfil.jpeg",                alt: "Cerrajero profesional a domicilio en Lima" },
-  { src: "/hero/apertura-puertas.jpeg",      alt: "Apertura de puertas de casas y residencias en Lima" },
-  { src: "/hero/apertura-autos.jpeg",        alt: "Apertura de autos sin daños en Lima" },
-  { src: "/hero/cambio-cerraduras.jpeg",     alt: "Cambio de cerraduras y pines en Lima" },
-  { src: "/hero/instalacion-cerraduras.jpeg",alt: "Instalación de cerraduras de seguridad en Lima" },
-  { src: "/hero/motos.jpeg",                 alt: "Cerrajero a domicilio en moto — Lima 24h" },
+  { src: "/hero/perfil.jpg",                 alt: "Cerrajero profesional a domicilio en Lima" },
+  { src: "/hero/apertura-puertas.jpg",       alt: "Apertura de puertas de casas y residencias en Lima" },
+  { src: "/hero/apertura-autos.jpg",         alt: "Apertura de autos sin daños en Lima" },
+  { src: "/hero/cambio-cerraduras.jpg",      alt: "Cambio de cerraduras y pines en Lima" },
+  { src: "/hero/instalacion-cerraduras.jpg", alt: "Instalación de cerraduras de seguridad en Lima" },
+  { src: "/hero/motos.jpg",                  alt: "Cerrajero a domicilio en moto — Lima 24h" },
 ] as const;
 
 /** Imagen estática pre-optimizada para LCP móvil (ver scripts/generate-lcp-image.mjs) */
